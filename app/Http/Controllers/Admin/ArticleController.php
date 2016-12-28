@@ -121,6 +121,21 @@ class ArticleController extends Controller {
                 ->withErrors( trans( 'admin.errors.general.save_failed' ) );
         }
 
+        if ($request->hasFile('cover_image')) {
+            $file       = $request->file('cover_image');
+            $mediaType  = $file->getClientMimeType();
+            $path       = $file->getPathname();
+            $image      = $this->fileUploadService->upload('article-cover-image', $path, $mediaType, [
+                'entityType' => 'article-cover-image',
+                'entityId'   => $model->id,
+                'title'      => $request->input('title', ''),
+            ]);
+
+            if (!empty($image)) {
+                $this->articleRepository->update($model, ['cover_image_id' => $image->id]);
+            }
+        }
+
         return redirect()
             ->action( 'Admin\ArticleController@index' )
             ->with( 'message-success', trans( 'admin.messages.general.create_success' ) );
@@ -191,6 +206,27 @@ class ArticleController extends Controller {
         $input[ 'is_enabled' ]          = $request->get( 'is_enabled', 0 );
         $this->articleRepository->update( $model, $input );
 
+        if ($request->hasFile('cover_image')) {
+            $file       = $request->file('cover_image');
+            $mediaType  = $file->getClientMimeType();
+            $path       = $file->getPathname();
+            $image      = $this->fileUploadService->upload('article-cover-image', $path, $mediaType, [
+                'entityType' => 'article-cover-image',
+                'entityId'   => $model->id,
+                'title'      => $request->input('title', ''),
+            ]);
+
+            if (!empty($image)) {
+                $oldImage = $model->coverImage;
+                if (!empty($oldImage)) {
+                    $this->fileUploadService->delete($oldImage);
+                    $this->imageRepository->delete($oldImage);
+                }
+
+                $this->articleRepository->update($model, [ 'cover_image_id' => $image->id ]);
+            }
+        }
+
         return redirect()
             ->action( 'Admin\ArticleController@show', [$id] )
             ->with( 'message-success', trans( 'admin.messages.general.update_success' ) );
@@ -218,9 +254,6 @@ class ArticleController extends Controller {
 
 
     public function getImages( PaginationRequest $request ) {
-        $offset = $request->offset();
-        $limit = $request->limit( 12 );
-
         $entityId = intval( $request->input( 'article_id', 0 ) );
         $type = $request->input( 'type', 'article-image' );
 

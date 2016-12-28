@@ -6,17 +6,28 @@ use App\Http\Controllers\Controller;
 use App\Repositories\AdminUserRepositoryInterface;
 use App\Http\Requests\Admin\AdminUserRequest;
 use App\Http\Requests\PaginationRequest;
+use App\Services\FileUploadServiceInterface;
+use App\Repositories\ImageRepositoryInterface;
 
 class AdminUserController extends Controller {
 
     /** @var \App\Repositories\AdminUserRepositoryInterface */
     protected $adminUserRepository;
 
+    /** @var FileUploadServiceInterface $fileUploadService */
+    protected $fileUploadService;
+
+    /** @var ImageRepositoryInterface $imageRepository */
+    protected $imageRepository;
 
     public function __construct(
-        AdminUserRepositoryInterface $adminUserRepository
+        AdminUserRepositoryInterface $adminUserRepository,
+        FileUploadServiceInterface      $fileUploadService,
+        ImageRepositoryInterface        $imageRepository
     ) {
-        $this->adminUserRepository = $adminUserRepository;
+        $this->adminUserRepository      = $adminUserRepository;
+        $this->fileUploadService        = $fileUploadService;
+        $this->imageRepository          = $imageRepository;
     }
 
     /**
@@ -80,8 +91,6 @@ class AdminUserController extends Controller {
                 'email',
                 'password',
                 'locale',
-                'api_access_token',
-                'remember_token'
             ]
         );
 
@@ -91,6 +100,21 @@ class AdminUserController extends Controller {
             return redirect()
                 ->back()
                 ->withErrors( trans( 'admin.errors.general.save_failed' ) );
+        }
+
+        if ($request->hasFile('profile_image')) {
+            $file       = $request->file('profile_image');
+            $mediaType  = $file->getClientMimeType();
+            $path       = $file->getPathname();
+            $image      = $this->fileUploadService->upload('user-profile-image', $path, $mediaType, [
+                'entityType' => 'user-profile-image',
+                'entityId'   => $model->id,
+                'title'      => $request->input('name', ''),
+            ]);
+
+            if (!empty($image)) {
+                $this->adminUserRepository->update($model, ['profile_image_id' => $image->id]);
+            }
         }
 
         return redirect()
@@ -149,14 +173,32 @@ class AdminUserController extends Controller {
             [
                 'name',
                 'email',
-                'password',
                 'locale',
-                'api_access_token',
-                'remember_token'
             ]
         );
 
         $this->adminUserRepository->update( $model, $input );
+
+        if ($request->hasFile('profile_image')) {
+            $file       = $request->file('profile_image');
+            $mediaType  = $file->getClientMimeType();
+            $path       = $file->getPathname();
+            $image      = $this->fileUploadService->upload('user-profile-image', $path, $mediaType, [
+                'entityType' => 'user-profile-image',
+                'entityId'   => $model->id,
+                'title'      => $request->input('name', ''),
+            ]);
+
+            if (!empty($image)) {
+                $oldImage = $model->coverImage;
+                if (!empty($oldImage)) {
+                    $this->fileUploadService->delete($oldImage);
+                    $this->imageRepository->delete($oldImage);
+                }
+
+                $this->adminUserRepository->update($model, [ 'profile_image_id' => $image->id ]);
+            }
+        }
 
         return redirect()
             ->action( 'Admin\AdminUserController@show', [$id] )
