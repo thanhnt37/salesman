@@ -170,6 +170,16 @@ return [
                 'last_notification_id' => 'Last Notification Id',
             ],
         ],
+        'logs'                     => [
+            'columns' => [
+                'user_name' => 'User Name',
+                'email'     => 'Email',
+                'action'    => 'Action',
+                'table'     => 'Table',
+                'record_id' => 'Record ID',
+                'query'     => 'Query',
+            ],
+        ],
         /* NEW PAGE STRINGS */
     ],
     'roles'    => [
