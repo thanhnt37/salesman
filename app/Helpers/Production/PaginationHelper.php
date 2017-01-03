@@ -88,12 +88,12 @@ class PaginationHelper implements PaginationHelperInterface
     public function sort($orderField, $displayName)
     {
         $page       = Request::get('page', 1);
-        $order      = Request::get('sort', 'id');
+        $order      = Request::get('order', 'id');
         $direction  = ( Request::get('direction', 'desc') == 'desc' ) ? 'asc' : 'desc';
         if( $order == $orderField ) {
-            $link = "<a href='?page=$page&sort=$orderField&direction=$direction'>$displayName</a>";
+            $link = "<a href='?page=$page&order=$orderField&direction=$direction'>$displayName</a>";
         } else {
-            $link = "<a href='?page=$page&sort=$orderField&direction=asc'>$displayName</a>";
+            $link = "<a href='?page=$page&order=$orderField&direction=asc'>$displayName</a>";
         }
         return $link;
     }
