@@ -237,8 +237,8 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
                     if ($column['type'] == 'TextType') {
                         continue;
                     }
-                    $tableHeader .= '                <th>@lang(\'admin.pages.%%classes-spinal%%.columns.'.$column['name'].'\')</th>'.PHP_EOL;
-                    $tableContent .= '                <td>{{ $model->'.$column['name'].' }}</td>'.PHP_EOL;
+                    $tableHeader .= '                <th>{!! \PaginationHelper::sort(\''.$column['name'].'\', trans(\'admin.pages.%%classes-spinal%%.columns.'.$column['name'].'\')) !!}</th>'.PHP_EOL;
+                    $tableContent .= '               <td>{{ $model->'.$column['name'].' }}</td>'.PHP_EOL;
                 }
                 $this->replaceTemplateVariable($stub, 'TABLE_HEADER', $tableHeader);
                 $this->replaceTemplateVariable($stub, 'TABLE_CONTENT', $tableContent);
