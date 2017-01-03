@@ -45,9 +45,9 @@
     <div class="box-body" style=" overflow-x: scroll; ">
         <table class="table table-bordered">
             <tr>
-                <th style="width: 10px">ID</th>
+                <th style="width: 10px">{!! \PaginationHelper::sort('id', 'ID') !!}</th>
 %%TABLE_HEADER%%
-                <th style="width: 40px">@lang('admin.pages.common.label.is_enabled')</th>
+                <th style="width: 40px">{!! \PaginationHelper::sort('is_enabled', trans('admin.pages.common.label.is_enabled')) !!}</th>
                 <th style="width: 40px">@lang('admin.pages.common.label.actions')</th>
             </tr>
             @foreach( $models as $model )
