@@ -4,50 +4,52 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class HelperBindServiceProvider extends ServiceProvider
-{
+class HelperBindServiceProvider extends ServiceProvider {
     /**
      * Bootstrap any application services.
      */
-    public function boot()
-    {
+    public function boot() {
         //
     }
 
     /**
      * Register any application services.
      */
-    public function register()
-    {
+    public function register() {
         /* Helpers */
-        $this->app->singleton('App\Helpers\DateTimeHelperInterface', 'App\Helpers\Production\DateTimeHelper');
+        $this->app->singleton(
+            \App\Helpers\DateTimeHelperInterface::class,
+            \App\Helpers\Production\DateTimeHelper::class
+        );
 
-        $this->app->singleton('App\Helpers\LocaleHelperInterface', 'App\Helpers\Production\LocaleHelper');
-
-        $this->app->singleton('App\Helpers\MetaInformationHelperInterface',
-            'App\Helpers\Production\MetaInformationHelper');
-
-        $this->app->singleton('App\Helpers\URLHelperInterface', 'App\Helpers\Production\URLHelper');
-
-        $this->app->singleton('App\Helpers\CollectionHelperInterface', 'App\Helpers\Production\CollectionHelper');
-
-        $this->app->singleton('App\Helpers\StringHelperInterface', 'App\Helpers\Production\StringHelper');
+        $this->app->singleton( \App\Helpers\LocaleHelperInterface::class, \App\Helpers\Production\LocaleHelper::class );
 
         $this->app->singleton(
-            'App\Helpers\PaginationHelperInterface',
-            'App\Helpers\Production\PaginationHelper'
+            \App\Helpers\MetaInformationHelperInterface::class,
+            \App\Helpers\Production\MetaInformationHelper::class
+        );
+
+        $this->app->singleton( \App\Helpers\URLHelperInterface::class, \App\Helpers\Production\URLHelper::class );
+
+        $this->app->singleton(
+            \App\Helpers\CollectionHelperInterface::class,
+            \App\Helpers\Production\CollectionHelper::class
+        );
+
+        $this->app->singleton( \App\Helpers\StringHelperInterface::class, \App\Helpers\Production\StringHelper::class );
+
+        $this->app->singleton(
+            \App\Helpers\PaginationHelperInterface::class,
+            \App\Helpers\Production\PaginationHelper::class
         );
 
         $this->app->singleton(
-            'App\Helpers\UserNotificationHelperInterface',
-            'App\Helpers\Production\UserNotificationHelper'
+            \App\Helpers\UserNotificationHelperInterface::class,
+            \App\Helpers\Production\UserNotificationHelper::class
         );
 
-        $this->app->singleton(
-            'App\Helpers\TypeHelperInterface',
-            'App\Helpers\Production\TypeHelper'
-        );
-
+        $this->app->singleton( \App\Helpers\TypeHelperInterface::class, \App\Helpers\Production\TypeHelper::class );
+        
         /* NEW BINDING */
     }
 }
