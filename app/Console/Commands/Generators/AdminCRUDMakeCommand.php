@@ -238,7 +238,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
                         continue;
                     }
                     $tableHeader .= '                <th>{!! \PaginationHelper::sort(\''.$column['name'].'\', trans(\'admin.pages.%%classes-spinal%%.columns.'.$column['name'].'\')) !!}</th>'.PHP_EOL;
-                    $tableContent .= '               <td>{{ $model->'.$column['name'].' }}</td>'.PHP_EOL;
+                    $tableContent .= '               <td>{{ $%%class%%->'.$column['name'].' }}</td>'.PHP_EOL;
                 }
                 $this->replaceTemplateVariable($stub, 'TABLE_HEADER', $tableHeader);
                 $this->replaceTemplateVariable($stub, 'TABLE_CONTENT', $tableContent);
@@ -403,7 +403,7 @@ class AdminCRUDMakeCommand extends GeneratorCommandBase
                         .PHP_EOL.'                        <label for="%%column%%">@lang(\'admin.pages.%%classes-spinal%%.columns.%%column%%\')</label>'
                         .PHP_EOL.'                        <div class="input-group date datetime-field">'
                         .PHP_EOL.'                        <input type="text" class="form-control" name="%%column%%"'
-                        .PHP_EOL.'                        value="{{ old(\'%%column%%\') ? old(\'%%column%%\') : \DateTimeHelper::formatDateTime($%%class%%->%%column%%) }}">'
+                        .PHP_EOL.'                        value="{{ old(\'%%column%%\') ? old(\'%%column%%\') : $%%class%%->%%column%% }}">'
                         .PHP_EOL.'                        <span class="input-group-addon">'
                         .PHP_EOL.'                        <span class="glyphicon glyphicon-calendar"></span>'
                         .PHP_EOL.'                        </span>'
