@@ -39,7 +39,7 @@ class %%CLASS%%Controller extends Controller
         $%%class%%s = $this->%%class%%Repository->get( $paginate['order'], $paginate['direction'], $paginate['offset'], $paginate['limit'] );
 
         return view('pages.admin.%%classes-spinal%%.index', [
-            '$%%class%%s'   => $%%class%%s,
+            '%%class%%s'    => $%%class%%s,
             'count'         => $count,
             'paginate'      => $paginate,
         ]);
