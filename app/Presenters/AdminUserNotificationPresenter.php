@@ -4,6 +4,10 @@ namespace App\Presenters;
 
 class AdminUserNotificationPresenter extends BasePresenter
 {
+    protected $multilingualFields = [];
+
+    protected $imageFields = [];
+
     public function userName()
     {
         if ($this->entity->user_id == 0) {

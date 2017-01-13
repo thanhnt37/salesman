@@ -117,10 +117,11 @@ $factory->define(
             'user_id'       => \App\Models\UserNotification::BROADCAST_USER_ID,
             'category_type' => \App\Models\UserNotification::CATEGORY_TYPE_SYSTEM_MESSAGE,
             'type'          => \App\Models\UserNotification::TYPE_GENERAL_MESSAGE,
-            'data'          => [],
+            'data'          => '',
             'locale'        => 'en',
             'content'       => 'TEST',
             'read'          => false,
+            'sent_at'       => $faker->dateTime,
         ];
     }
 );
@@ -132,10 +133,11 @@ $factory->define(
             'user_id'       => \App\Models\AdminUserNotification::BROADCAST_USER_ID,
             'category_type' => \App\Models\AdminUserNotification::CATEGORY_TYPE_SYSTEM_MESSAGE,
             'type'          => \App\Models\AdminUserNotification::TYPE_GENERAL_MESSAGE,
-            'data'          => [],
+            'data'          => '',
             'locale'        => 'en',
             'content'       => 'TEST',
             'read'          => false,
+            'sent_at'       => $faker->dateTime,
         ];
     }
 );
