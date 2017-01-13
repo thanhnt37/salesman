@@ -85,7 +85,7 @@ class AdminUserNotificationController extends Controller {
             ]
         );
 
-        $input[ 'sent_at' ]    = ( $input[ 'sent_at' ] != "" ) ? $input[ 'sent_at' ] : null;
+        $input[ 'sent_at' ] = ( $input[ 'sent_at' ] != "" ) ? $input[ 'sent_at' ] : null;
         $input[ 'read' ] = $request->get( 'read', 0 );
 
         $model = $this->adminUserNotificationRepository->create( $input );
@@ -111,7 +111,7 @@ class AdminUserNotificationController extends Controller {
     public function show( $id ) {
         $model = $this->adminUserNotificationRepository->find( $id );
         if( empty( $model ) ) {
-            \App::abort( 404 );
+            abort( 404 );
         }
 
         return view(
@@ -146,7 +146,7 @@ class AdminUserNotificationController extends Controller {
         /** @var \App\Models\AdminUserNotification $model */
         $model = $this->adminUserNotificationRepository->find( $id );
         if( empty( $model ) ) {
-            \App::abort( 404 );
+            abort( 404 );
         }
         $input = $request->only(
             [
@@ -159,7 +159,7 @@ class AdminUserNotificationController extends Controller {
             ]
         );
 
-        $input[ 'sent_at' ]    = ( $input[ 'sent_at' ] != "" ) ? $input[ 'sent_at' ] : null;
+        $input[ 'sent_at' ] = ( $input[ 'sent_at' ] != "" ) ? $input[ 'sent_at' ] : null;
         $input[ 'read' ] = $request->get( 'read', 0 );
 
         $this->adminUserNotificationRepository->update( $model, $input );
@@ -180,7 +180,7 @@ class AdminUserNotificationController extends Controller {
         /** @var \App\Models\AdminUserNotification $model */
         $model = $this->adminUserNotificationRepository->find( $id );
         if( empty( $model ) ) {
-            \App::abort( 404 );
+            abort( 404 );
         }
         $this->adminUserNotificationRepository->delete( $model );
 

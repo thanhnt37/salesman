@@ -134,7 +134,7 @@ class UserController extends Controller {
     public function show( $id ) {
         $model = $this->userRepository->find( $id );
         if( empty( $model ) ) {
-            \App::abort( 404 );
+            abort( 404 );
         }
 
         return view(
@@ -169,7 +169,7 @@ class UserController extends Controller {
         /** @var \App\Models\User $model */
         $model = $this->userRepository->find( $id );
         if( empty( $model ) ) {
-            \App::abort( 404 );
+            abort( 404 );
         }
         $input = $request->only(
             [
@@ -220,7 +220,7 @@ class UserController extends Controller {
         /** @var \App\Models\User $model */
         $model = $this->userRepository->find( $id );
         if( empty( $model ) ) {
-            \App::abort( 404 );
+            abort( 404 );
         }
         $this->userRepository->delete( $model );
 

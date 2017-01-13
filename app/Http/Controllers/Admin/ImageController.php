@@ -117,7 +117,7 @@ class ImageController extends Controller {
     public function show( $id ) {
         $model = $this->imageRepository->find( $id );
         if( empty( $model ) ) {
-            \App::abort( 404 );
+            abort( 404 );
         }
 
         return view(
@@ -152,7 +152,7 @@ class ImageController extends Controller {
         /** @var \App\Models\Image $model */
         $model = $this->imageRepository->find( $id );
         if( empty( $model ) ) {
-            \App::abort( 404 );
+            abort( 404 );
         }
         $input = $request->only(
             [
@@ -192,7 +192,7 @@ class ImageController extends Controller {
         /** @var \App\Models\Image $model */
         $model = $this->imageRepository->find( $id );
         if( empty( $model ) ) {
-            \App::abort( 404 );
+            abort( 404 );
         }
         $this->imageRepository->delete( $model );
 

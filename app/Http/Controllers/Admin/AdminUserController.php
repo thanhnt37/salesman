@@ -132,7 +132,7 @@ class AdminUserController extends Controller {
     public function show( $id ) {
         $model = $this->adminUserRepository->find( $id );
         if( empty( $model ) ) {
-            \App::abort( 404 );
+            abort( 404 );
         }
 
         return view(
@@ -167,7 +167,7 @@ class AdminUserController extends Controller {
         /** @var \App\Models\AdminUser $model */
         $model = $this->adminUserRepository->find( $id );
         if( empty( $model ) ) {
-            \App::abort( 404 );
+            abort( 404 );
         }
         $input = $request->only(
             [
@@ -216,7 +216,7 @@ class AdminUserController extends Controller {
         /** @var \App\Models\AdminUser $model */
         $model = $this->adminUserRepository->find( $id );
         if( empty( $model ) ) {
-            \App::abort( 404 );
+            abort( 404 );
         }
         $this->adminUserRepository->delete( $model );
 

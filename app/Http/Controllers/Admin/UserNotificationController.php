@@ -111,7 +111,7 @@ class UserNotificationController extends Controller {
     public function show( $id ) {
         $model = $this->userNotificationRepository->find( $id );
         if( empty( $model ) ) {
-            \App::abort( 404 );
+            abort( 404 );
         }
 
         return view(
@@ -146,7 +146,7 @@ class UserNotificationController extends Controller {
         /** @var \App\Models\UserNotification $model */
         $model = $this->userNotificationRepository->find( $id );
         if( empty( $model ) ) {
-            \App::abort( 404 );
+            abort( 404 );
         }
         $input = $request->only(
             [
@@ -180,7 +180,7 @@ class UserNotificationController extends Controller {
         /** @var \App\Models\UserNotification $model */
         $model = $this->userNotificationRepository->find( $id );
         if( empty( $model ) ) {
-            \App::abort( 404 );
+            abort( 404 );
         }
         $this->userNotificationRepository->delete( $model );
 

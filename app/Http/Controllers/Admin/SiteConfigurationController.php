@@ -107,7 +107,7 @@ class SiteConfigurationController extends Controller {
     public function show( $id ) {
         $model = $this->siteConfigurationRepository->find( $id );
         if( empty( $model ) ) {
-            \App::abort( 404 );
+            abort( 404 );
         }
 
         return view(
@@ -142,7 +142,7 @@ class SiteConfigurationController extends Controller {
         /** @var \App\Models\SiteConfiguration $model */
         $model = $this->siteConfigurationRepository->find( $id );
         if( empty( $model ) ) {
-            \App::abort( 404 );
+            abort( 404 );
         }
         $input = $request->only(
             [
@@ -172,7 +172,7 @@ class SiteConfigurationController extends Controller {
         /** @var \App\Models\SiteConfiguration $model */
         $model = $this->siteConfigurationRepository->find( $id );
         if( empty( $model ) ) {
-            \App::abort( 404 );
+            abort( 404 );
         }
         $this->siteConfigurationRepository->delete( $model );
 
