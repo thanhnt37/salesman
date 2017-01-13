@@ -15,10 +15,14 @@ $factory->define(
     App\Models\User::class,
     function( Faker\Generator $faker ) {
         return [
-            'name'           => $faker->name,
-            'email'          => $faker->email,
-            'password'       => bcrypt( str_random( 10 ) ),
-            'remember_token' => str_random( 10 ),
+            'name'                 => $faker->name,
+            'email'                => $faker->email,
+            'password'             => bcrypt( str_random( 10 ) ),
+            'remember_token'       => str_random( 10 ),
+            'locale'               => $faker->languageCode,
+            'last_notification_id' => 0,
+            'api_access_token'     => '',
+            'profile_image_id'     => 0,
         ];
     }
 );
@@ -27,10 +31,14 @@ $factory->define(
     App\Models\AdminUser::class,
     function( Faker\Generator $faker ) {
         return [
-            'name'           => $faker->name,
-            'email'          => $faker->email,
-            'password'       => bcrypt( str_random( 10 ) ),
-            'remember_token' => str_random( 10 ),
+            'name'                 => $faker->name,
+            'email'                => $faker->email,
+            'password'             => bcrypt( str_random( 10 ) ),
+            'remember_token'       => str_random( 10 ),
+            'locale'               => $faker->languageCode,
+            'last_notification_id' => 0,
+            'api_access_token'     => '',
+            'profile_image_id'     => 0,
         ];
     }
 );
