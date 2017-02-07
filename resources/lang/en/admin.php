@@ -41,6 +41,8 @@ return [
                 'search_results'   => 'Total: :count results',
                 'select_province'  => 'Select a Province',
                 'select_district'  => 'Select a District',
+                'select_locale'    => 'Select a Locale',
+                'select_category'  => 'Select a Category',
             ],
             'buttons' => [
                 'create'          => 'Create New',

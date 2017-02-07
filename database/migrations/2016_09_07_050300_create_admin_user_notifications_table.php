@@ -24,7 +24,7 @@ class CreateAdminUserNotificationsTable extends Migration
             $table->string('locale')->default('');
 
             $table->boolean('read')->default(false);
-            $table->timestamp('sent_at');
+            $table->timestamp('sent_at')->nullable();
 
             $table->timestamps();
 

@@ -14,11 +14,11 @@ class DatabaseSeeder extends Seeder
 
         $this->call('AdminUserTableSeeder');
 
-        if (App::environment() === 'testing') {
+        if (\App::environment() === 'testing') {
             // Add More Seed For Testing
         }
 
-        if (App::environment() === 'local') {
+        if (\App::environment() === 'local') {
             $this->call(Seeds\Local\DatabaseSeeder::class);
         }
 

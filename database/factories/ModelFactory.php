@@ -105,7 +105,7 @@ $factory->define(
             'locale'             => 'ja',
             'is_enabled'         => true,
             'publish_started_at' => $faker->dateTime,
-            'publish_ended_at'   => $faker->dateTime,
+            'publish_ended_at'   => null,
         ];
     }
 );
