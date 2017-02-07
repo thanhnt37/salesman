@@ -121,7 +121,14 @@
                                     <label for="locale">@lang('admin.pages.articles.columns.locale')</label>
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control" id="locale" name="locale" required value="{{ old('locale') ? old('locale') : $article->locale }}">
+                                    <select class="form-control" name="locale" id="locale" style="margin-bottom: 15px;" required>
+                                        <option value="">@lang('admin.pages.common.label.select_locale')</option>
+                                        @foreach( config('locale.languages') as $code => $locale )
+                                            <option value="{!! $code !!}" @if( (old('locale') && old('locale') == $code) || ( $article->locale === $code) ) selected @endif >
+                                                {{ trans($locale['name']) }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </td>
                             </tr>
 
