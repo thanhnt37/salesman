@@ -182,6 +182,14 @@ return [
                 'query'     => 'Query',
             ],
         ],
+        'contacts' => [
+            'columns' => [
+                'name'     => 'Name',
+                'email'    => 'Email',
+                'messages' => 'Messages',
+                'domain'   => 'Domain',
+            ],
+        ],
         /* NEW PAGE STRINGS */
     ],
     'roles'    => [

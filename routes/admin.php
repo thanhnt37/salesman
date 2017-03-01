@@ -43,6 +43,7 @@
                 \Route::resource( 'admin-user-notifications', 'Admin\AdminUserNotificationController' );
                 \Route::resource( 'images', 'Admin\ImageController' );
                 \Route::resource( 'logs', 'Admin\LogController' );
+                \Route::resource('contacts', 'Admin\ContactController');
                 /* NEW ADMIN RESOURCE ROUTE */
             }
         );
