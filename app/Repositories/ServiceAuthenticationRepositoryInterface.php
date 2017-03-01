@@ -17,7 +17,7 @@ interface ServiceAuthenticationRepositoryInterface extends SingleKeyModelReposit
      *
      * @return \App\Models\ServiceAuthenticationBase
      */
-    public function findByServiceAndId($service, $id);
+    public function findByServiceAndId( $service, $id );
 
     /**
      * Find Service Auth Info by service and user id.
@@ -27,5 +27,5 @@ interface ServiceAuthenticationRepositoryInterface extends SingleKeyModelReposit
      *
      * @return \App\Models\ServiceAuthenticationBase
      */
-    public function findByServiceAndAuthModelId($service, $authModelId);
+    public function findByServiceAndAuthModelId( $service, $authModelId );
 }

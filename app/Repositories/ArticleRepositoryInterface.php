@@ -9,5 +9,5 @@ interface ArticleRepositoryInterface extends SingleKeyModelRepositoryInterface
      *
      * @return mixed
      */
-    public function findBySlug($slug);
+    public function findBySlug( $slug );
 }

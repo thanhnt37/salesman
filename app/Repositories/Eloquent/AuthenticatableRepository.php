@@ -12,17 +12,19 @@ class AuthenticatableRepository extends SingleKeyModelRepository implements Auth
         return new AuthenticatableBase();
     }
 
-    public function findByEmail($email)
+    public function findByEmail( $email )
     {
         $className = $this->getModelClassName();
 
-        return $className::whereEmail($email)->first();
+        return $className::whereEmail( $email )
+                         ->first();
     }
 
-    public function findByFacebookId($facebookId)
+    public function findByFacebookId( $facebookId )
     {
         $className = $this->getModelClassName();
 
-        return $className::whereFacebookId($facebookId)->first();
+        return $className::whereFacebookId( $facebookId )
+                         ->first();
     }
 }

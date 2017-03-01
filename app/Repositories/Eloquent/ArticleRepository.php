@@ -24,8 +24,9 @@ class ArticleRepository extends SingleKeyModelRepository implements ArticleRepos
         ];
     }
 
-    public function findBySlug($slug)
+    public function findBySlug( $slug )
     {
-        return Article::whereSlug($slug)->first();
+        return Article::whereSlug( $slug )
+                      ->first();
     }
 }

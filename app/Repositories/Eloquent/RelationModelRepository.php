@@ -30,46 +30,54 @@ class RelationModelRepository extends SingleKeyModelRepository implements Relati
         return $this->childKey;
     }
 
-    public function findByRelationKeys($parentId, $childId)
+    public function findByRelationKeys( $parentId, $childId )
     {
         $query = $this->getBlankModel();
-        $model = $query->where($this->getParentKey(), $parentId)->where($this->getChildKey(), $childId)->first();
+        $model = $query->where( $this->getParentKey(), $parentId )
+                       ->where( $this->getChildKey(), $childId )
+                       ->first();
 
         return $model;
     }
 
-    public function allByParentKey($parentId)
+    public function allByParentKey( $parentId )
     {
-        $query = $this->getBlankModel();
-        $models = $query->where($this->getParentKey(), $parentId)->get();
+        $query  = $this->getBlankModel();
+        $models = $query->where( $this->getParentKey(), $parentId )
+                        ->get();
 
         return $models;
     }
 
-    public function updateList($parentId, $childIds)
+    public function updateList( $parentId, $childIds )
     {
-        $currentChildIds = $this->allByParentKey($parentId)->pluck($this->getChildKey())->toArray();
-        $deletes = array_diff($currentChildIds, $childIds);
-        $adds = array_diff($childIds, $currentChildIds);
+        $currentChildIds = $this->allByParentKey( $parentId )
+                                ->pluck( $this->getChildKey() )
+                                ->toArray();
+        $deletes    = array_diff( $currentChildIds, $childIds );
+        $adds       = array_diff( $childIds, $currentChildIds );
 
-        if (count($deletes) > 0) {
+        if( count( $deletes ) > 0 ) {
             $query = $this->getBlankModel();
-            $query->where(function($query) use ($parentId, $deletes)
-                {
-                    $query->where($this->getParentKey(), $parentId)
-                          ->whereIn($this->getChildKey(), $deletes);
+            $query->where(
+                function( $query ) use ( $parentId, $deletes ) {
+                    $query->where( $this->getParentKey(), $parentId )
+                          ->whereIn( $this->getChildKey(), $deletes );
                 }
-            )->delete();
+            )
+                  ->delete();
         }
 
-        if (count($adds) > 0) {
-            $parentKey = $this->getParentKey();
-            $childKey = $this->getChildKey();
-            foreach ($adds as $childId) {
-                $this->create([
-                    $parentKey => $parentId,
-                    $childKey  => $childId,
-                ]);
+        if( count( $adds ) > 0 ) {
+            $parentKey  = $this->getParentKey();
+            $childKey   = $this->getChildKey();
+            foreach( $adds as $childId ) {
+                $this->create(
+                    [
+                        $parentKey => $parentId,
+                        $childKey  => $childId,
+                    ]
+                );
             }
         }
 

@@ -15,14 +15,14 @@ interface ImageRepositoryInterface extends SingleKeyModelRepositoryInterface
      *
      * @return \App\Models\Image[]|\Traversable|array
      */
-    public function getByFileCategoryType($fileCategoryType, $order, $direction, $offset, $limit);
+    public function getByFileCategoryType( $fileCategoryType, $order, $direction, $offset, $limit );
 
     /**
      * @param string $url
      *
      * @return \App\Models\Image|null
      */
-    public function findByUrl($url);
+    public function findByUrl( $url );
 
     /**
      * @param string $type
@@ -30,5 +30,5 @@ interface ImageRepositoryInterface extends SingleKeyModelRepositoryInterface
      *
      * @return \App\Models\Image[]|\Traversable|array
      */
-    public function allByEntityTypeAndEntityId($type, $entityId);
+    public function allByEntityTypeAndEntityId( $type, $entityId );
 }

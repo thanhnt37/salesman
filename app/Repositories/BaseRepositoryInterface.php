@@ -19,7 +19,7 @@ interface BaseRepositoryInterface
      *
      * @return \App\Models\Base[]|\Traversable|array
      */
-    public function all($order = null, $direction = null);
+    public function all( $order = null, $direction = null );
 
     /**
      * Get All Enabled Models.
@@ -29,7 +29,7 @@ interface BaseRepositoryInterface
      *
      * @return \App\Models\Base[]|\Traversable|array
      */
-    public function allEnabled($order = null, $direction = null);
+    public function allEnabled( $order = null, $direction = null );
 
     /**
      * Get Models with Order.
@@ -41,7 +41,7 @@ interface BaseRepositoryInterface
      *
      * @return \App\Models\Base[]|\Traversable|array
      */
-    public function get($order, $direction, $offset, $limit);
+    public function get( $order, $direction, $offset, $limit );
 
     /**
      * Get Models with Order.
@@ -53,7 +53,7 @@ interface BaseRepositoryInterface
      *
      * @return \App\Models\Base[]|\Traversable|array
      */
-    public function getEnabled($order, $direction, $offset, $limit);
+    public function getEnabled( $order, $direction, $offset, $limit );
 
     /**
      * @return int
@@ -98,14 +98,14 @@ interface BaseRepositoryInterface
      *
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    public function validator(array $data);
+    public function validator( array $data );
 
     /**
      * @param \App\Models\Base[] $models
      *
      * @return array mixed
      */
-    public function getAPIArray($models);
+    public function getAPIArray( $models );
 
     /**
      * @param \Illuminate\Support\Collection $collection
@@ -114,5 +114,5 @@ interface BaseRepositoryInterface
      *
      * @return \Illuminate\Support\Collection
      */
-    public function pluck($collection, $value, $key = null);
+    public function pluck( $collection, $value, $key = null );
 }

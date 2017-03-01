@@ -8,11 +8,11 @@ use App\Models\Base;
 
 class BaseRepository implements BaseRepositoryInterface
 {
-    protected $cacheEnabled = false;
+    protected $cacheEnabled     = false;
 
-    protected $cachePrefix = 'model';
+    protected $cachePrefix      = 'model';
 
-    protected $cacheLifeTime = 60; // Minutes
+    protected $cacheLifeTime    = 60; // Minutes
 
     public function getEmptyList()
     {
@@ -23,7 +23,7 @@ class BaseRepository implements BaseRepositoryInterface
     {
         $model = $this->getBlankModel();
 
-        return get_class($model);
+        return get_class( $model );
     }
 
     public function getBlankModel()
@@ -43,47 +43,55 @@ class BaseRepository implements BaseRepositoryInterface
         ];
     }
 
-    public function validator(array $data)
+    public function validator( array $data )
     {
-        return \Validator::make($data, $this->rule());
+        return \Validator::make( $data, $this->rule() );
     }
 
-    public function all($order = null, $direction = null)
+    public function all( $order = null, $direction = null )
     {
         $model = $this->getModelClassName();
-        if (!empty($order)) {
-            $direction = empty($direction) ? 'asc' : $direction;
+        if( !empty( $order ) ) {
+            $direction = empty( $direction ) ? 'asc' : $direction;
 
-            return $model::orderBy($order, $direction)->get();
+            return $model::orderBy( $order, $direction )
+                         ->get();
         }
 
         return $model::all();
     }
 
-    public function allEnabled($order = null, $direction = null)
+    public function allEnabled( $order = null, $direction = null )
     {
         $model = $this->getModelClassName();
-        $query = $model::where('is_enabled', '=', true);
-        if (!empty($order)) {
-            $direction = empty($direction) ? 'asc' : $direction;
-            $query = $query->orderBy($order, $direction);
+        $query = $model::where( 'is_enabled', '=', true );
+        if( !empty( $order ) ) {
+            $direction = empty( $direction ) ? 'asc' : $direction;
+            $query = $query->orderBy( $order, $direction );
         }
 
         return $query->get();
     }
 
-    public function get($order = 'id', $direction = 'asc', $offset = 0, $limit = 20)
+    public function get( $order = 'id', $direction = 'asc', $offset = 0, $limit = 20 )
     {
         $model = $this->getModelClassName();
 
-        return $model::orderBy($order, $direction)->skip($offset)->take($limit)->get();
+        return $model::orderBy( $order, $direction )
+                     ->skip( $offset )
+                     ->take( $limit )
+                     ->get();
     }
 
-    public function getEnabled($order = 'id', $direction = 'asc', $offset = 0, $limit = 20)
+    public function getEnabled( $order = 'id', $direction = 'asc', $offset = 0, $limit = 20 )
     {
         $model = $this->getModelClassName();
 
-        return $model::where('is_enabled', '=', true)->orderBy($order, $direction)->skip($offset)->take($limit)->get();
+        return $model::where( 'is_enabled', '=', true )
+                     ->orderBy( $order, $direction )
+                     ->skip( $offset )
+                     ->take( $limit )
+                     ->get();
     }
 
     public function count()
@@ -97,31 +105,32 @@ class BaseRepository implements BaseRepositoryInterface
     {
         $model = $this->getModelClassName();
 
-        return $model::where('is_enabled', '=', true)->count();
+        return $model::where( 'is_enabled', '=', true )
+                     ->count();
     }
 
-    public function getAPIArray($models)
+    public function getAPIArray( $models )
     {
         $ret = [];
-        foreach ($models as $model) {
+        foreach( $models as $model ) {
             $ret[] = $model->toAPIArray();
         }
 
         return $ret;
     }
 
-    public function pluck($collection, $value, $key = null)
+    public function pluck( $collection, $value, $key = null )
     {
         $items = [];
-        foreach ($collection as $model) {
-            if (empty($key)) {
+        foreach( $collection as $model ) {
+            if( empty( $key ) ) {
                 $items[] = $model->$value;
             } else {
                 $items[ $model->$key ] = $model->$value;
             }
         }
 
-        return Collection::make($items);
+        return Collection::make( $items );
     }
 
     /**
@@ -129,11 +138,11 @@ class BaseRepository implements BaseRepositoryInterface
      *
      * @return string
      */
-    protected function getCacheKey($ids)
+    protected function getCacheKey( $ids )
     {
         $key = $this->cachePrefix;
-        foreach ($ids as $id) {
-            $key .= '-'.$id;
+        foreach( $ids as $id ) {
+            $key .= '-' . $id;
         }
 
         return $key;
@@ -158,21 +167,25 @@ class BaseRepository implements BaseRepositoryInterface
         $direction,
         $offset,
         $limit
-    ) {
-        $order = strtolower($order);
-        $direction = strtolower($direction);
-        $offset = intval($offset);
-        $limit = intval($limit);
-        $order = in_array($order, $orderCandidates) ? $order : strtolower($orderDefault);
-        $direction = in_array($direction, ['asc', 'desc']) ? $direction : 'asc';
+    )
+    {
+        $order = strtolower( $order );
+        $direction = strtolower( $direction );
+        $offset = intval( $offset );
+        $limit = intval( $limit );
+        $order = in_array( $order, $orderCandidates ) ? $order : strtolower( $orderDefault );
+        $direction = in_array( $direction, ['asc', 'desc'] ) ? $direction : 'asc';
 
-        if ($limit <= 0) {
+        if( $limit <= 0 ) {
             $limit = 10;
         }
-        if ($offset < 0) {
+        if( $offset < 0 ) {
             $offset = 0;
         }
 
-        return $query->orderBy($order, $direction)->offset($offset)->limit($limit)->get();
+        return $query->orderBy( $order, $direction )
+                     ->offset( $offset )
+                     ->limit( $limit )
+                     ->get();
     }
 }

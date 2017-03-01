@@ -15,5 +15,5 @@ interface FileRepositoryInterface extends SingleKeyModelRepositoryInterface
      *
      * @return \App\Models\Image[]|\Traversable|array
      */
-    public function getByFileCategoryType($fileCategoryType, $order, $direction, $offset, $limit);
+    public function getByFileCategoryType( $fileCategoryType, $order, $direction, $offset, $limit );
 }

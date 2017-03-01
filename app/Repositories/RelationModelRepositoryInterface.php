@@ -23,17 +23,17 @@ interface RelationModelRepositoryInterface extends SingleKeyModelRepositoryInter
     /**
      * @param int $parentKey
      * @param int $childKey
-
+     *
      * @return \App\Models\Base|null
      */
-    public function findByRelationKeys($parentKey, $childKey);
+    public function findByRelationKeys( $parentKey, $childKey );
 
     /**
      * @param int $parentKey
      *
      * @return \App\Models\Base[]
      */
-    public function allByParentKey($parentKey);
+    public function allByParentKey( $parentKey );
 
     /**
      * @param int   $parentKey

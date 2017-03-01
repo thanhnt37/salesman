@@ -28,55 +28,58 @@ class SiteConfigurationRepository extends SingleKeyModelRepository implements Si
     public function messages()
     {
         return [
-            'name.required' => trans('validation.repositories.site_configuration.name.required'),
+            'name.required' => trans( 'validation.repositories.site_configuration.name.required' ),
         ];
     }
 
-    public function findByLocale($locale)
+    public function findByLocale( $locale )
     {
-        if ($this->cacheEnabled) {
-            $data = \Cache::get($this->getLocaleCacheKey($locale));
-            if (!empty($data)) {
+        if( $this->cacheEnabled ) {
+            $data = \Cache::get( $this->getLocaleCacheKey( $locale ) );
+            if( !empty( $data ) ) {
                 return $data;
             }
         }
 
-        $siteConfiguration = SiteConfiguration::whereLocale($locale)->first();
-        if (!empty($siteConfiguration)) {
-            if ($this->cacheEnabled) {
-                \Cache::put($this->getLocaleCacheKey($locale), $siteConfiguration, $this->cacheLifeTime);
+        $siteConfiguration = SiteConfiguration::whereLocale( $locale )
+                                              ->first();
+        if( !empty( $siteConfiguration ) ) {
+            if( $this->cacheEnabled ) {
+                \Cache::put( $this->getLocaleCacheKey( $locale ), $siteConfiguration, $this->cacheLifeTime );
             }
 
             return $siteConfiguration;
         }
-        $siteConfiguration = SiteConfiguration::whereLocale(config('app.locale'))->first();
-        if (!empty($siteConfiguration)) {
-            if ($this->cacheEnabled) {
-                \Cache::put($this->getLocaleCacheKey($locale), $siteConfiguration, $this->cacheLifeTime);
+        $siteConfiguration = SiteConfiguration::whereLocale( config( 'app.locale' ) )
+                                              ->first();
+        if( !empty( $siteConfiguration ) ) {
+            if( $this->cacheEnabled ) {
+                \Cache::put( $this->getLocaleCacheKey( $locale ), $siteConfiguration, $this->cacheLifeTime );
             }
 
             return $siteConfiguration;
         }
-        $siteConfiguration = SiteConfiguration::orderBy('id', 'asc')->first();
+        $siteConfiguration = SiteConfiguration::orderBy( 'id', 'asc' )
+                                              ->first();
 
-        if ($this->cacheEnabled) {
-            \Cache::put($this->getLocaleCacheKey($locale), $siteConfiguration, $this->cacheLifeTime);
+        if( $this->cacheEnabled ) {
+            \Cache::put( $this->getLocaleCacheKey( $locale ), $siteConfiguration, $this->cacheLifeTime );
         }
 
         return $siteConfiguration;
     }
 
-    private function getLocaleCacheKey($locale)
+    private function getLocaleCacheKey( $locale )
     {
-        return implode('-', [$this->cachePrefix, $locale]);
+        return implode( '-', [$this->cachePrefix, $locale] );
     }
 
-    public function update($model, $input)
+    public function update( $model, $input )
     {
-        if ($this->cacheEnabled) {
-            \Cache::forget($this->getLocaleCacheKey($model->locale));
+        if( $this->cacheEnabled ) {
+            \Cache::forget( $this->getLocaleCacheKey( $model->locale ) );
         }
 
-        return parent::update($model, $input);
+        return parent::update( $model, $input );
     }
 }

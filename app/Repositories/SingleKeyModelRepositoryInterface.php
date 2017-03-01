@@ -14,7 +14,7 @@ interface SingleKeyModelRepositoryInterface extends BaseRepositoryInterface
      *
      * @return \App\Models\Base|null
      */
-    public function find($id);
+    public function find( $id );
 
     /**
      * @param array       $ids
@@ -24,14 +24,14 @@ interface SingleKeyModelRepositoryInterface extends BaseRepositoryInterface
      *
      * @return \App\Models\Base[]
      */
-    public function allByIds($ids, $order = null, $direction = null, $reorder = false);
+    public function allByIds( $ids, $order = null, $direction = null, $reorder = false );
 
     /**
      * @param array $ids
      *
      * @return int
      */
-    public function countByIds($ids);
+    public function countByIds( $ids );
 
     /**
      * @param array       $ids
@@ -42,14 +42,14 @@ interface SingleKeyModelRepositoryInterface extends BaseRepositoryInterface
      *
      * @return \App\Models\Base[]
      */
-    public function getByIds($ids, $order = null, $direction = null, $offset = null, $limit = null);
+    public function getByIds( $ids, $order = null, $direction = null, $offset = null, $limit = null );
 
     /**
      * @param array $input
      *
      * @return \App\Models\Base
      */
-    public function create($input);
+    public function create( $input );
 
     /**
      * @param \App\Models\Base $model
@@ -57,19 +57,19 @@ interface SingleKeyModelRepositoryInterface extends BaseRepositoryInterface
      *
      * @return \App\Models\Base
      */
-    public function update($model, $input);
+    public function update( $model, $input );
 
     /**
      * @param \App\Models\Base $model
      *
      * @return \App\Models\Base
      */
-    public function save($model);
+    public function save( $model );
 
     /**
      * @param \App\Models\Base $model
      *
      * @return bool
      */
-    public function delete($model);
+    public function delete( $model );
 }

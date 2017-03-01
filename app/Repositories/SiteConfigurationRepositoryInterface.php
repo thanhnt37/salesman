@@ -11,5 +11,5 @@ interface SiteConfigurationRepositoryInterface extends SingleKeyModelRepositoryI
      *
      * @return \App\Models\SiteConfiguration
      */
-    public function findByLocale($locale);
+    public function findByLocale( $locale );
 }

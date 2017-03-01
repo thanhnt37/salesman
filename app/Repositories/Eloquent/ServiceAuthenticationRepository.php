@@ -31,17 +31,21 @@ class ServiceAuthenticationRepository extends SingleKeyModelRepository implement
         ];
     }
 
-    public function findByServiceAndId($service, $id)
+    public function findByServiceAndId( $service, $id )
     {
         $class = $this->getModelClassName();
 
-        return $class::whereService($service)->whereServiceId($id)->first();
+        return $class::whereService( $service )
+                     ->whereServiceId( $id )
+                     ->first();
     }
 
-    public function findByServiceAndAuthModelId($service, $authModelId)
+    public function findByServiceAndAuthModelId( $service, $authModelId )
     {
         $class = $this->getModelClassName();
 
-        return $class::whereService($service)->where("$this->authModelColumn", $authModelId)->first();
+        return $class::whereService( $service )
+                     ->where( "$this->authModelColumn", $authModelId )
+                     ->first();
     }
 }

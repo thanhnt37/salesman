@@ -23,36 +23,43 @@ class LogRepository extends SingleKeyModelRepository implements LogRepositoryInt
         ];
     }
 
-    public function getWithFilter($filter, $order, $direction, $offset, $limit)
+    public function getWithFilter( $filter, $order, $direction, $offset, $limit )
     {
         $logModel = $this->getBlankModel();
 
-        $keyword = isset($filter['keyword']) ? $filter['keyword'] : '';
-        $logModel = $logModel->where(function ($subquery) use ($keyword) {
-            $subquery->where('user_name', 'like', '%'.$keyword.'%')
-                     ->orWhere('email', 'like', '%'.$keyword.'%')
-                     ->orWhere('action', 'like', '%'.$keyword.'%')
-                     ->orWhere('table', 'like', '%'.$keyword.'%')
-                     ->orWhere('record_id', 'like', '%'.$keyword.'%')
-                     ->orWhere('query', 'like', '%'.$keyword.'%');
-        });
+        $keyword = isset( $filter[ 'keyword' ] ) ? $filter[ 'keyword' ] : '';
+        $logModel = $logModel->where(
+            function( $subquery ) use ( $keyword ) {
+                $subquery->where( 'user_name', 'like', '%' . $keyword . '%' )
+                         ->orWhere( 'email', 'like', '%' . $keyword . '%' )
+                         ->orWhere( 'action', 'like', '%' . $keyword . '%' )
+                         ->orWhere( 'table', 'like', '%' . $keyword . '%' )
+                         ->orWhere( 'record_id', 'like', '%' . $keyword . '%' )
+                         ->orWhere( 'query', 'like', '%' . $keyword . '%' );
+            }
+        );
 
-        return $logModel->orderBy($order, $direction)->skip($offset)->take($limit)->get();
+        return $logModel->orderBy( $order, $direction )
+                        ->skip( $offset )
+                        ->take( $limit )
+                        ->get();
     }
 
-    public function countWithFilter($filter)
+    public function countWithFilter( $filter )
     {
         $logModel = $this->getBlankModel();
 
-        $keyword = isset($filter['keyword']) ? $filter['keyword'] : '';
-        $logModel = $logModel->where(function ($subquery) use ($keyword) {
-            $subquery->where('user_name', 'like', '%'.$keyword.'%')
-                     ->orWhere('email', 'like', '%'.$keyword.'%')
-                     ->orWhere('action', 'like', '%'.$keyword.'%')
-                     ->orWhere('table', 'like', '%'.$keyword.'%')
-                     ->orWhere('record_id', 'like', '%'.$keyword.'%')
-                     ->orWhere('query', 'like', '%'.$keyword.'%');
-        });
+        $keyword = isset( $filter[ 'keyword' ] ) ? $filter[ 'keyword' ] : '';
+        $logModel = $logModel->where(
+            function( $subquery ) use ( $keyword ) {
+                $subquery->where( 'user_name', 'like', '%' . $keyword . '%' )
+                         ->orWhere( 'email', 'like', '%' . $keyword . '%' )
+                         ->orWhere( 'action', 'like', '%' . $keyword . '%' )
+                         ->orWhere( 'table', 'like', '%' . $keyword . '%' )
+                         ->orWhere( 'record_id', 'like', '%' . $keyword . '%' )
+                         ->orWhere( 'query', 'like', '%' . $keyword . '%' );
+            }
+        );
 
         return $logModel->count();
     }

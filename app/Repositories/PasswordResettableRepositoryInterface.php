@@ -11,5 +11,5 @@ interface PasswordResettableRepositoryInterface extends TokenRepositoryInterface
      *
      * @return int
      */
-    public function findEmailByToken($token);
+    public function findEmailByToken( $token );
 }

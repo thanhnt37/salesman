@@ -12,16 +12,19 @@ class ImageRepository extends SingleKeyModelRepository implements ImageRepositor
         return new Image();
     }
 
-    public function getByFileCategoryType($fileCategory, $order, $direction, $offset, $limit)
+    public function getByFileCategoryType( $fileCategory, $order, $direction, $offset, $limit )
     {
-        $query = Image::whereFileCategoryType($fileCategory)->whereIsEnabled(true);
+        $query = Image::whereFileCategoryType( $fileCategory )
+                      ->whereIsEnabled( true );
 
-        return $this->getWithQueryBuilder($query, ['id'], 'id', $order, $direction, $offset, $limit);
+        return $this->getWithQueryBuilder( $query, ['id'], 'id', $order, $direction, $offset, $limit );
     }
 
-    public function findByUrl($url)
+    public function findByUrl( $url )
     {
-        return Image::whereUrl($url)->whereIsEnabled(true)->first();
+        return Image::whereUrl( $url )
+                    ->whereIsEnabled( true )
+                    ->first();
     }
 
     public function rules()
@@ -36,8 +39,10 @@ class ImageRepository extends SingleKeyModelRepository implements ImageRepositor
         ];
     }
 
-    public function allByEntityTypeAndEntityId($type, $entityId)
+    public function allByEntityTypeAndEntityId( $type, $entityId )
     {
-        return Image::whereEntityType($type)->whereEntityId($entityId)->get();
+        return Image::whereEntityType( $type )
+                    ->whereEntityId( $entityId )
+                    ->get();
     }
 }
