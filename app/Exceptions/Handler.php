@@ -29,9 +29,9 @@ class Handler extends ExceptionHandler
      *
      * @param \Exception $exception
      */
-    public function report(Exception $exception)
+    public function report( Exception $exception )
     {
-        parent::report($exception);
+        parent::report( $exception );
     }
 
     /**
@@ -42,9 +42,9 @@ class Handler extends ExceptionHandler
      *
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
+    public function render( $request, Exception $exception )
     {
-        return parent::render($request, $exception);
+        return parent::render( $request, $exception );
     }
 
     /**
@@ -55,12 +55,12 @@ class Handler extends ExceptionHandler
      *
      * @return \Illuminate\Http\Response
      */
-    protected function unauthenticated($request, AuthenticationException $exception)
+    protected function unauthenticated( $request, AuthenticationException $exception )
     {
-        if ($request->expectsJson()) {
-            return response()->json(['error' => 'Unauthenticated.'], 401);
+        if( $request->expectsJson() ) {
+            return response()->json( ['error' => 'Unauthenticated.'], 401 );
         }
 
-        return redirect()->guest('login');
+        return redirect()->guest( 'login' );
     }
 }
