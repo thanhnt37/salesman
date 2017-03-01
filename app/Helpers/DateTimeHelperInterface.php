@@ -14,7 +14,7 @@ interface DateTimeHelperInterface
     /**
      * @param string $timezone
      */
-    public function setPresentationTimeZone($timezone = null);
+    public function setPresentationTimeZone( $timezone = null );
 
     /**
      */
@@ -39,7 +39,7 @@ interface DateTimeHelperInterface
      *
      * @return \Carbon\Carbon
      */
-    public function now(\DateTimeZone $timezone = null);
+    public function now( \DateTimeZone $timezone = null );
 
     /**
      * Convert Unix TimeStamp to Carbon(DateTime).
@@ -49,7 +49,7 @@ interface DateTimeHelperInterface
      *
      * @return \Carbon\Carbon
      */
-    public function fromTimestamp($timeStamp, \DateTimeZone $timezone = null);
+    public function fromTimestamp( $timeStamp, \DateTimeZone $timezone = null );
 
     /**
      * Get DateTime Object from string.
@@ -60,7 +60,7 @@ interface DateTimeHelperInterface
      *
      * @return \Carbon\Carbon
      */
-    public function dateTime($dateTimeStr, \DateTimeZone $timezoneFrom = null, \DateTimeZone $timezoneTo = null);
+    public function dateTime( $dateTimeStr, \DateTimeZone $timezoneFrom = null, \DateTimeZone $timezoneTo = null );
 
     /**
      * @param \DateTime     $dateTime
@@ -68,7 +68,7 @@ interface DateTimeHelperInterface
      *
      * @return string
      */
-    public function formatDate($dateTime, \DateTimeZone $timezone = null);
+    public function formatDate( $dateTime, \DateTimeZone $timezone = null );
 
     /**
      * @param \DateTime     $dateTime
@@ -76,7 +76,7 @@ interface DateTimeHelperInterface
      *
      * @return string
      */
-    public function formatTime($dateTime, \DateTimeZone $timezone = null);
+    public function formatTime( $dateTime, \DateTimeZone $timezone = null );
 
     /**
      * @param \DateTime|null $dateTime
@@ -85,26 +85,27 @@ interface DateTimeHelperInterface
      *
      * @return string
      */
-    public function formatDateTime($dateTime, $format = 'Y-m-d H:i', \DateTimeZone $timezone = null);
+    public function formatDateTime( $dateTime, $format = 'Y-m-d H:i', \DateTimeZone $timezone = null );
 
     /**
      * @param string $locale
      *
      * @return string
      */
-    public function getDateFormatByLocale($locale = null);
+    public function getDateFormatByLocale( $locale = null );
 
     /**
      * @param string $dateTimeString
      *
      * @return \DateTime
      */
-    public function convertToStorageDateTime($dateTimeString);
+    public function convertToStorageDateTime( $dateTimeString );
 
     /**
      * @param  \DateTime $dateTime
+     *
      * @return \DateTime
      */
-    public function changeToPresentationTimeZone($dateTime);
+    public function changeToPresentationTimeZone( $dateTime );
 
 }

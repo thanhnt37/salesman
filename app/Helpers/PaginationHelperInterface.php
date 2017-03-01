@@ -12,7 +12,7 @@ interface PaginationHelperInterface
      *
      * @return mixed
      */
-    public function normalize($offset, $limit, $maxLimit, $defaultLimit);
+    public function normalize( $offset, $limit, $maxLimit, $defaultLimit );
 
     /**
      * @param int    $offset
@@ -24,7 +24,7 @@ interface PaginationHelperInterface
      *
      * @return array
      */
-    public function data($order, $direction, $offset, $limit, $count, $path, $query, $paginationNumber = 5);
+    public function data( $order, $direction, $offset, $limit, $count, $path, $query, $paginationNumber = 5 );
 
     /**
      * @param int    $offset

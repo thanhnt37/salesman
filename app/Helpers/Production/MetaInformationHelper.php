@@ -23,85 +23,89 @@ class MetaInformationHelper implements MetaInformationHelperInterface
         MetaInformationServiceInterface $metaInformationService,
         SiteConfigurationRepositoryInterface $siteConfigurationRepository,
         ImageRepositoryInterface $imageRepository
-    ) {
+    )
+    {
         $this->metaInformationService = $metaInformationService;
         $this->siteConfigurationRepository = $siteConfigurationRepository;
         $this->imageRepository = $imageRepository;
     }
 
-    public function getMetaKeywords($keywords = null)
+    public function getMetaKeywords( $keywords = null )
     {
-        if (!empty($keywords)) {
+        if( !empty( $keywords ) ) {
             return $keywords;
         }
         $siteConfiguration = $this->getSiteConfiguration();
-        if (!empty($siteConfiguration)) {
+        if( !empty( $siteConfiguration ) ) {
             return $siteConfiguration->keywords;
         }
 
         return '';
     }
 
-    public function getMetaDescription($description = null)
+    public function getMetaDescription( $description = null )
     {
-        if (!empty($description)) {
+        if( !empty( $description ) ) {
             return $description;
         }
         $siteConfiguration = $this->getSiteConfiguration();
-        if (!empty($siteConfiguration)) {
+        if( !empty( $siteConfiguration ) ) {
             return $siteConfiguration->description;
         }
 
         return '';
     }
 
-    public function getTitle($title = null)
+    public function getTitle( $title = null )
     {
         $siteConfiguration = $this->getSiteConfiguration();
-        $postfix = !empty($siteConfiguration) ? $siteConfiguration->title : '';
-        if (empty($title)) {
+        $postfix = !empty( $siteConfiguration ) ? $siteConfiguration->title : '';
+        if( empty( $title ) ) {
             return $postfix;
         }
 
-        return $title.' | '.$postfix;
+        return $title . ' | ' . $postfix;
     }
 
-    public function getOGPImage($url = null)
+    public function getOGPImage( $url = null )
     {
-        if (empty($url)) {
+        if( empty( $url ) ) {
             $siteConfiguration = $this->getSiteConfiguration();
-            $siteConfiguration->load('ogpImage');
+            if( !$siteConfiguration ) {
+                return \URLHelper::asset( 'img/og-header.jpg', 'common' );
+            }
+            $siteConfiguration->load( 'ogpImage' );
             $image = $siteConfiguration->ogpImage;
-            if (empty($image)) {
+            if( empty( $image ) ) {
                 $image = $this->imageRepository->getBlankModel();
             }
 
-            return $image->getThumbnailUrl(1200, 628);
+            return $image->getThumbnailUrl( 1200, 628 );
         }
 
         return $url;
     }
 
-    public function getTwitterCardImage($url = null)
+    public function getTwitterCardImage( $url = null )
     {
-        if (empty($url)) {
+        if( empty( $url ) ) {
             $siteConfiguration = $this->getSiteConfiguration();
-            $siteConfiguration->load('ogpImage');
+            $siteConfiguration->load( 'ogpImage' );
             $image = $siteConfiguration->ogpImage;
-            if (empty($image)) {
+            if( empty( $image ) ) {
                 $image = $this->imageRepository->getBlankModel();
             }
 
-            return $image->getThumbnailUrl(1024, 512);
+            return $image->getThumbnailUrl( 1024, 512 );
         }
 
         return $url;
     }
 
-    public function getUrl($url = null)
+    public function getUrl( $url = null )
     {
-        if (empty($url)) {
-            $url = URLHelperFacade::canonicalizeHost(action('Media\IndexController@index'));
+        if( empty( $url ) ) {
+            $url = URLHelperFacade::canonicalizeHost( action( 'Media\IndexController@index' ) );
         }
 
         return $url;
@@ -111,6 +115,6 @@ class MetaInformationHelper implements MetaInformationHelperInterface
     {
         $locale = \App::getLocale();
 
-        return $this->siteConfigurationRepository->findByLocale($locale);
+        return $this->siteConfigurationRepository->findByLocale( $locale );
     }
 }

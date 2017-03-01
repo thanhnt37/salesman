@@ -12,7 +12,7 @@ interface LocaleHelperInterface
      *
      * @return string
      */
-    public function setLocale($locale = null, $user = null);
+    public function setLocale( $locale = null, $user = null );
 
     /**
      * @return mixed

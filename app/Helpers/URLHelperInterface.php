@@ -10,7 +10,7 @@ interface URLHelperInterface
      *
      * @return string
      */
-    public function swapHost($url, $host);
+    public function swapHost( $url, $host );
 
     /**
      * @param string $url
@@ -18,14 +18,14 @@ interface URLHelperInterface
      *
      * @return string
      */
-    public function canonicalizeHost($url, $locale = null);
+    public function canonicalizeHost( $url, $locale = null );
 
     /**
      * @param string $urlPath
      *
      * @return string
      */
-    public function normalizeUrlPath($urlPath);
+    public function normalizeUrlPath( $urlPath );
 
     /**
      * @param string|null $locale
@@ -33,7 +33,7 @@ interface URLHelperInterface
      *
      * @return string
      */
-    public function getHostWithLocale($locale = null, $host = null);
+    public function getHostWithLocale( $locale = null, $host = null );
 
     /**
      * @param string $path
@@ -41,7 +41,7 @@ interface URLHelperInterface
      *
      * @return string
      */
-    public function asset($path, $type = 'user');
+    public function asset( $path, $type = 'user' );
 
     /**
      * @param string $path
@@ -49,5 +49,5 @@ interface URLHelperInterface
      *
      * @return string
      */
-    public function elixir($path, $type = 'user');
+    public function elixir( $path, $type = 'user' );
 }

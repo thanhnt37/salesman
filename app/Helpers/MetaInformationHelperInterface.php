@@ -9,40 +9,40 @@ interface MetaInformationHelperInterface
      *
      * @return string
      */
-    public function getMetaKeywords($keywords = null);
+    public function getMetaKeywords( $keywords = null );
 
     /**
      * @param string|null $description
      *
      * @return string
      */
-    public function getMetaDescription($description = null);
+    public function getMetaDescription( $description = null );
 
     /**
      * @param string|null $title
      *
      * @return string
      */
-    public function getTitle($title = null);
+    public function getTitle( $title = null );
 
     /**
      * @param string|null $url
      *
      * @return string
      */
-    public function getOGPImage($url = null);
+    public function getOGPImage( $url = null );
 
     /**
      * @param string|null $url
      *
      * @return string
      */
-    public function getTwitterCardImage($url = null);
+    public function getTwitterCardImage( $url = null );
 
     /**
      * @param string|null $url
      *
      * @return string
      */
-    public function getUrl($url = null);
+    public function getUrl( $url = null );
 }

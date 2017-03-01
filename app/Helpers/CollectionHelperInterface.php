@@ -11,5 +11,5 @@ interface CollectionHelperInterface
      *
      * @return array
      */
-    public function getSelectOptions($collection);
+    public function getSelectOptions( $collection );
 }

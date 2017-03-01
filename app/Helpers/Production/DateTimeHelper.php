@@ -11,24 +11,24 @@ class DateTimeHelper implements DateTimeHelperInterface
 
     public function timezoneForStorage()
     {
-        return new \DateTimeZone(config('app.timezone'));
+        return new \DateTimeZone( config( 'app.timezone' ) );
     }
 
-    public function setPresentationTimeZone($timezone = null)
+    public function setPresentationTimeZone( $timezone = null )
     {
-        \Session::set(static::PRESENTATION_TIME_ZONE_SESSION_KEY, $timezone);
+        \Session::set( static::PRESENTATION_TIME_ZONE_SESSION_KEY, $timezone );
     }
 
     public function clearPresentationTimeZone()
     {
-        \Session::remove(static::PRESENTATION_TIME_ZONE_SESSION_KEY);
+        \Session::remove( static::PRESENTATION_TIME_ZONE_SESSION_KEY );
     }
 
     public function getPresentationTimeZoneString()
     {
-        $timezone = \Session::get(static::PRESENTATION_TIME_ZONE_SESSION_KEY);
-        if (empty($timezone)) {
-            $timezone = config('app.default_presentation_timezone');
+        $timezone = \Session::get( static::PRESENTATION_TIME_ZONE_SESSION_KEY );
+        if( empty( $timezone ) ) {
+            $timezone = config( 'app.default_presentation_timezone' );
         }
 
         return $timezone;
@@ -36,79 +36,80 @@ class DateTimeHelper implements DateTimeHelperInterface
 
     public function timezoneForPresentation()
     {
-        return new \DateTimeZone($this->getPresentationTimeZoneString());
+        return new \DateTimeZone( $this->getPresentationTimeZoneString() );
     }
 
-    public function now(\DateTimeZone $timezone = null)
+    public function now( \DateTimeZone $timezone = null )
     {
-        $timezone = empty($timezone) ? $this->timezoneForStorage() : $timezone;
+        $timezone = empty( $timezone ) ? $this->timezoneForStorage() : $timezone;
 
-        return Carbon::now($timezone);
+        return Carbon::now( $timezone );
     }
 
-    public function dateTime($dateTimeStr, \DateTimeZone $timezoneFrom = null, \DateTimeZone $timezoneTo = null)
+    public function dateTime( $dateTimeStr, \DateTimeZone $timezoneFrom = null, \DateTimeZone $timezoneTo = null )
     {
-        $timezoneFrom = empty($timezoneFrom) ? $this->timezoneForPresentation() : $timezoneFrom;
-        $timezoneTo = empty($timezoneTo) ? $this->timezoneForStorage() : $timezoneTo;
+        $timezoneFrom = empty( $timezoneFrom ) ? $this->timezoneForPresentation() : $timezoneFrom;
+        $timezoneTo = empty( $timezoneTo ) ? $this->timezoneForStorage() : $timezoneTo;
 
-        return Carbon::parse($dateTimeStr, $timezoneFrom)->setTimezone($timezoneTo);
+        return Carbon::parse( $dateTimeStr, $timezoneFrom )
+                     ->setTimezone( $timezoneTo );
     }
 
-    public function fromTimestamp($timeStamp, \DateTimeZone $timezone = null)
+    public function fromTimestamp( $timeStamp, \DateTimeZone $timezone = null )
     {
-        $timezone = empty($timezone) ? $this->timezoneForStorage() : $timezone;
+        $timezone = empty( $timezone ) ? $this->timezoneForStorage() : $timezone;
 
-        $datetime = Carbon::now($timezone);
-        $datetime->setTimestamp($timeStamp);
+        $datetime = Carbon::now( $timezone );
+        $datetime->setTimestamp( $timeStamp );
 
         return $datetime;
     }
 
-    public function formatDate($dateTime, \DateTimeZone $timezone = null)
+    public function formatDate( $dateTime, \DateTimeZone $timezone = null )
     {
         $viewDateTime = clone $dateTime;
-        $timezone = empty($timezone) ? $this->timezoneForPresentation() : $timezone;
-        $viewDateTime->setTimeZone($timezone);
+        $timezone = empty( $timezone ) ? $this->timezoneForPresentation() : $timezone;
+        $viewDateTime->setTimeZone( $timezone );
 
-        return $viewDateTime->format('Y-m-d');
+        return $viewDateTime->format( 'Y-m-d' );
     }
 
-    public function formatTime($dateTime, \DateTimeZone $timezone = null)
+    public function formatTime( $dateTime, \DateTimeZone $timezone = null )
     {
         $viewDateTime = clone $dateTime;
-        $timezone = empty($timezone) ? $this->timezoneForPresentation() : $timezone;
-        $viewDateTime->setTimeZone($timezone);
+        $timezone = empty( $timezone ) ? $this->timezoneForPresentation() : $timezone;
+        $viewDateTime->setTimeZone( $timezone );
 
-        return $viewDateTime->format('H:i');
+        return $viewDateTime->format( 'H:i' );
     }
 
-    public function formatDateTime($dateTime, $format = 'Y-m-d H:i', \DateTimeZone $timezone = null)
+    public function formatDateTime( $dateTime, $format = 'Y-m-d H:i', \DateTimeZone $timezone = null )
     {
-        if (empty($dateTime)) {
+        if( empty( $dateTime ) ) {
             $dateTime = $this->now();
         }
         $viewDateTime = clone $dateTime;
-        $timezone = empty($timezone) ? $this->timezoneForPresentation() : $timezone;
-        $viewDateTime->setTimeZone($timezone);
+        $timezone = empty( $timezone ) ? $this->timezoneForPresentation() : $timezone;
+        $viewDateTime->setTimeZone( $timezone );
 
-        return $viewDateTime->format($format);
+        return $viewDateTime->format( $format );
     }
 
-    public function getDateFormatByLocale($locale = null)
+    public function getDateFormatByLocale( $locale = null )
     {
     }
 
-    public function convertToStorageDateTime($dateTimeString)
+    public function convertToStorageDateTime( $dateTimeString )
     {
-        $viewDateTime = new Carbon($dateTimeString, $this->timezoneForPresentation());
+        $viewDateTime = new Carbon( $dateTimeString, $this->timezoneForPresentation() );
         $dateTime = clone $viewDateTime;
-        $dateTime->setTimeZone($this->timezoneForStorage());
+        $dateTime->setTimeZone( $this->timezoneForStorage() );
 
         return $dateTime;
     }
 
-    public function changeToPresentationTimeZone($dateTime)
+    public function changeToPresentationTimeZone( $dateTime )
     {
-        return $dateTime->setTimezone($this->timezoneForPresentation());
+        return $dateTime->setTimezone( $this->timezoneForPresentation() );
     }
 }

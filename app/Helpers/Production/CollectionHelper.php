@@ -6,8 +6,8 @@ use App\Helpers\CollectionHelperInterface;
 
 class CollectionHelper implements CollectionHelperInterface
 {
-    public function getSelectOptions($collection)
+    public function getSelectOptions( $collection )
     {
-        return $collection->pluck('name', 'id')->toArray();
+        return $collection->pluck( 'name', 'id' )->toArray();
     }
 }
