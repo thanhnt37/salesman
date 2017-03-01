@@ -7,7 +7,8 @@ use App\Repositories\SiteConfigurationRepositoryInterface;
 use App\Http\Requests\Admin\SiteConfigurationRequest;
 use App\Http\Requests\PaginationRequest;
 
-class SiteConfigurationController extends Controller {
+class SiteConfigurationController extends Controller
+{
 
     /** @var \App\Repositories\SiteConfigurationRepositoryInterface */
     protected $siteConfigurationRepository;
@@ -15,7 +16,8 @@ class SiteConfigurationController extends Controller {
 
     public function __construct(
         SiteConfigurationRepositoryInterface $siteConfigurationRepository
-    ) {
+    )
+    {
         $this->siteConfigurationRepository = $siteConfigurationRepository;
     }
 
@@ -26,14 +28,15 @@ class SiteConfigurationController extends Controller {
      *
      * @return \Response
      */
-    public function index( PaginationRequest $request ) {
-        $paginate[ 'offset' ] = $request->offset();
-        $paginate[ 'limit' ] = $request->limit();
-        $paginate[ 'order' ] = $request->order();
-        $paginate[ 'direction' ] = $request->direction();
-        $paginate[ 'baseUrl' ] = action( 'Admin\SiteConfigurationController@index' );
+    public function index( PaginationRequest $request )
+    {
+        $paginate[ 'offset' ]       = $request->offset();
+        $paginate[ 'limit' ]        = $request->limit();
+        $paginate[ 'order' ]        = $request->order();
+        $paginate[ 'direction' ]    = $request->direction();
+        $paginate[ 'baseUrl' ]      = action( 'Admin\SiteConfigurationController@index' );
 
-        $count = $this->siteConfigurationRepository->count();
+        $count  = $this->siteConfigurationRepository->count();
         $models = $this->siteConfigurationRepository->get(
             $paginate[ 'order' ],
             $paginate[ 'direction' ],
@@ -56,7 +59,8 @@ class SiteConfigurationController extends Controller {
      *
      * @return \Response
      */
-    public function create() {
+    public function create()
+    {
         return view(
             'pages.admin.site-configurations.edit',
             [
@@ -73,7 +77,8 @@ class SiteConfigurationController extends Controller {
      *
      * @return \Response
      */
-    public function store( SiteConfigurationRequest $request ) {
+    public function store( SiteConfigurationRequest $request )
+    {
         $input = $request->only(
             [
                 'locale',
@@ -104,7 +109,8 @@ class SiteConfigurationController extends Controller {
      *
      * @return \Response
      */
-    public function show( $id ) {
+    public function show( $id )
+    {
         $model = $this->siteConfigurationRepository->find( $id );
         if( empty( $model ) ) {
             abort( 404 );
@@ -126,7 +132,8 @@ class SiteConfigurationController extends Controller {
      *
      * @return \Response
      */
-    public function edit( $id ) {
+    public function edit( $id )
+    {
         //
     }
 
@@ -138,7 +145,8 @@ class SiteConfigurationController extends Controller {
      *
      * @return \Response
      */
-    public function update( $id, SiteConfigurationRequest $request ) {
+    public function update( $id, SiteConfigurationRequest $request )
+    {
         /** @var \App\Models\SiteConfiguration $model */
         $model = $this->siteConfigurationRepository->find( $id );
         if( empty( $model ) ) {
@@ -168,7 +176,8 @@ class SiteConfigurationController extends Controller {
      *
      * @return \Response
      */
-    public function destroy( $id ) {
+    public function destroy( $id )
+    {
         /** @var \App\Models\SiteConfiguration $model */
         $model = $this->siteConfigurationRepository->find( $id );
         if( empty( $model ) ) {

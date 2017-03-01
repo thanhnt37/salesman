@@ -21,62 +21,67 @@ class MeController extends Controller
     protected $adminUserNotificationService;
 
     public function __construct(
-        AdminUserServiceInterface $adminUserService,
-        AdminUserRepositoryInterface $adminUserRepository,
-        AdminUserNotificationServiceInterface $adminUserNotificationService
-    ) {
-        $this->adminUserService = $adminUserService;
-        $this->adminUserRepository = $adminUserRepository;
-        $this->adminUserNotificationService = $adminUserNotificationService;
+        AdminUserServiceInterface               $adminUserService,
+        AdminUserRepositoryInterface            $adminUserRepository,
+        AdminUserNotificationServiceInterface   $adminUserNotificationService
+    )
+    {
+        $this->adminUserService                 = $adminUserService;
+        $this->adminUserRepository              = $adminUserRepository;
+        $this->adminUserNotificationService     = $adminUserNotificationService;
     }
 
     public function index()
     {
-        return view('pages.admin.me.index');
+        return view( 'pages.admin.me.index' );
     }
 
-    public function update(MeUpdateRequest $request)
+    public function update( MeUpdateRequest $request )
     {
-        $adminUser = $this->adminUserService->getUser();
-
-        $password = $request->get('password');
-
-        $update = [
-            'name' => $request->get('name', ''),
-            'email' => $request->get('email', ''),
+        $adminUser  = $this->adminUserService->getUser();
+        $password   = $request->get( 'password' );
+        $update     = [
+            'name'  => $request->get( 'name', '' ),
+            'email' => $request->get( 'email', '' ),
         ];
 
-        if (!empty($password)) {
-            $update['password'] = $password;
+        if( !empty( $password ) ) {
+            $update[ 'password' ] = $password;
         }
 
-        $this->adminUserRepository->update($adminUser, $update);
+        $this->adminUserRepository->update( $adminUser, $update );
 
-        return redirect()->action('Admin\MeController@index')->with('message-success',
-            trans('admin.messages.general.update_success'));
+        return redirect()
+            ->action( 'Admin\MeController@index' )
+            ->with(
+                'message-success',
+                trans( 'admin.messages.general.update_success' )
+            );
     }
 
-    public function notifications(PaginationRequest $request)
+    public function notifications( PaginationRequest $request )
     {
-        $adminUser = $this->adminUserService->getUser();
+        $adminUser  = $this->adminUserService->getUser();
+        $offset     = $request->offset();
+        $limit      = $request->limit();
 
-        $offset = $request->offset();
-        $limit = $request->limit();
+        $notifications  = $this->adminUserNotificationService->getNotifications( $adminUser, $offset, $limit );
+        $count          = $this->adminUserNotificationService->countNotifications( $adminUser );
 
-        $notifications = $this->adminUserNotificationService->getNotifications($adminUser, $offset, $limit);
-        $count = $this->adminUserNotificationService->countNotifications($adminUser);
-
-        if (count($notifications) > 0) {
-            $lastNotification = $notifications[0];
-            $this->adminUserNotificationService->readUntil($adminUser, $lastNotification);
+        if( count( $notifications ) > 0 ) {
+            $lastNotification = $notifications[ 0 ];
+            $this->adminUserNotificationService->readUntil( $adminUser, $lastNotification );
         }
 
-        return view('pages.admin.me.notifications', [
-            'models' => $notifications,
-            'offset' => $offset,
-            'limit' => $limit,
-            'count' => $count,
-            'baseUrl' => action('Admin\MeController@notifications'),
-        ]);
+        return view(
+            'pages.admin.me.notifications',
+            [
+                'models'  => $notifications,
+                'offset'  => $offset,
+                'limit'   => $limit,
+                'count'   => $count,
+                'baseUrl' => action( 'Admin\MeController@notifications' ),
+            ]
+        );
     }
 }

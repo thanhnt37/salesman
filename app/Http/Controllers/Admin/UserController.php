@@ -9,7 +9,8 @@ use App\Http\Requests\PaginationRequest;
 use App\Services\FileUploadServiceInterface;
 use App\Repositories\ImageRepositoryInterface;
 
-class UserController extends Controller {
+class UserController extends Controller
+{
 
     /** @var \App\Repositories\UserRepositoryInterface */
     protected $userRepository;
@@ -21,13 +22,14 @@ class UserController extends Controller {
     protected $imageRepository;
 
     public function __construct(
-        UserRepositoryInterface         $userRepository,
-        FileUploadServiceInterface      $fileUploadService,
-        ImageRepositoryInterface        $imageRepository
-    ) {
-        $this->userRepository           = $userRepository;
-        $this->fileUploadService        = $fileUploadService;
-        $this->imageRepository          = $imageRepository;
+        UserRepositoryInterface     $userRepository,
+        FileUploadServiceInterface  $fileUploadService,
+        ImageRepositoryInterface    $imageRepository
+    )
+    {
+        $this->userRepository       = $userRepository;
+        $this->fileUploadService    = $fileUploadService;
+        $this->imageRepository      = $imageRepository;
     }
 
     /**
@@ -37,14 +39,15 @@ class UserController extends Controller {
      *
      * @return \Response
      */
-    public function index( PaginationRequest $request ) {
-        $paginate[ 'offset' ] = $request->offset();
-        $paginate[ 'limit' ] = $request->limit();
-        $paginate[ 'order' ] = $request->order();
-        $paginate[ 'direction' ] = $request->direction();
-        $paginate[ 'baseUrl' ] = action( 'Admin\UserController@index' );
+    public function index( PaginationRequest $request )
+    {
+        $paginate[ 'offset' ]       = $request->offset();
+        $paginate[ 'limit' ]        = $request->limit();
+        $paginate[ 'order' ]        = $request->order();
+        $paginate[ 'direction' ]    = $request->direction();
+        $paginate[ 'baseUrl' ]      = action( 'Admin\UserController@index' );
 
-        $count = $this->userRepository->count();
+        $count  = $this->userRepository->count();
         $models = $this->userRepository->get(
             $paginate[ 'order' ],
             $paginate[ 'direction' ],
@@ -55,8 +58,8 @@ class UserController extends Controller {
         return view(
             'pages.admin.users.index',
             [
-                'models' => $models,
-                'count' => $count,
+                'models'   => $models,
+                'count'    => $count,
                 'paginate' => $paginate,
             ]
         );
@@ -67,7 +70,8 @@ class UserController extends Controller {
      *
      * @return \Response
      */
-    public function create() {
+    public function create()
+    {
         return view(
             'pages.admin.users.edit',
             [
@@ -84,7 +88,8 @@ class UserController extends Controller {
      *
      * @return \Response
      */
-    public function store( UserRequest $request ) {
+    public function store( UserRequest $request )
+    {
         $input = $request->only(
             [
                 'name',
@@ -104,18 +109,23 @@ class UserController extends Controller {
                 ->withErrors( trans( 'admin.errors.general.save_failed' ) );
         }
 
-        if ($request->hasFile('profile_image')) {
-            $file       = $request->file('profile_image');
+        if( $request->hasFile( 'profile_image' ) ) {
+            $file       = $request->file( 'profile_image' );
             $mediaType  = $file->getClientMimeType();
             $path       = $file->getPathname();
-            $image      = $this->fileUploadService->upload('user-profile-image', $path, $mediaType, [
-                'entityType' => 'user-profile-image',
-                'entityId'   => $model->id,
-                'title'      => $request->input('name', ''),
-            ]);
+            $image      = $this->fileUploadService->upload(
+                'user-profile-image',
+                $path,
+                $mediaType,
+                [
+                    'entityType' => 'user-profile-image',
+                    'entityId'   => $model->id,
+                    'title'      => $request->input( 'name', '' ),
+                ]
+            );
 
-            if (!empty($image)) {
-                $this->userRepository->update($model, ['profile_image_id' => $image->id]);
+            if( !empty( $image ) ) {
+                $this->userRepository->update( $model, ['profile_image_id' => $image->id] );
             }
         }
 
@@ -131,7 +141,8 @@ class UserController extends Controller {
      *
      * @return \Response
      */
-    public function show( $id ) {
+    public function show( $id )
+    {
         $model = $this->userRepository->find( $id );
         if( empty( $model ) ) {
             abort( 404 );
@@ -153,7 +164,8 @@ class UserController extends Controller {
      *
      * @return \Response
      */
-    public function edit( $id ) {
+    public function edit( $id )
+    {
         //
     }
 
@@ -165,7 +177,8 @@ class UserController extends Controller {
      *
      * @return \Response
      */
-    public function update( $id, UserRequest $request ) {
+    public function update( $id, UserRequest $request )
+    {
         /** @var \App\Models\User $model */
         $model = $this->userRepository->find( $id );
         if( empty( $model ) ) {
@@ -183,24 +196,29 @@ class UserController extends Controller {
 
         $this->userRepository->update( $model, $input );
 
-        if ($request->hasFile('profile_image')) {
-            $file       = $request->file('profile_image');
+        if( $request->hasFile( 'profile_image' ) ) {
+            $file       = $request->file( 'profile_image' );
             $mediaType  = $file->getClientMimeType();
             $path       = $file->getPathname();
-            $image      = $this->fileUploadService->upload('user-profile-image', $path, $mediaType, [
-                'entityType' => 'user-profile-image',
-                'entityId'   => $model->id,
-                'title'      => $request->input('name', ''),
-            ]);
+            $image      = $this->fileUploadService->upload(
+                'user-profile-image',
+                $path,
+                $mediaType,
+                [
+                    'entityType' => 'user-profile-image',
+                    'entityId'   => $model->id,
+                    'title'      => $request->input( 'name', '' ),
+                ]
+            );
 
-            if (!empty($image)) {
+            if( !empty( $image ) ) {
                 $oldImage = $model->coverImage;
-                if (!empty($oldImage)) {
-                    $this->fileUploadService->delete($oldImage);
-                    $this->imageRepository->delete($oldImage);
+                if( !empty( $oldImage ) ) {
+                    $this->fileUploadService->delete( $oldImage );
+                    $this->imageRepository->delete( $oldImage );
                 }
 
-                $this->userRepository->update($model, [ 'profile_image_id' => $image->id ]);
+                $this->userRepository->update( $model, ['profile_image_id' => $image->id] );
             }
         }
 
@@ -216,7 +234,8 @@ class UserController extends Controller {
      *
      * @return \Response
      */
-    public function destroy( $id ) {
+    public function destroy( $id )
+    {
         /** @var \App\Models\User $model */
         $model = $this->userRepository->find( $id );
         if( empty( $model ) ) {

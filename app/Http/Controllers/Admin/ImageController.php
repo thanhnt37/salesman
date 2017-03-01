@@ -7,7 +7,8 @@ use App\Repositories\ImageRepositoryInterface;
 use App\Http\Requests\Admin\ImageRequest;
 use App\Http\Requests\PaginationRequest;
 
-class ImageController extends Controller {
+class ImageController extends Controller
+{
 
     /** @var \App\Repositories\ImageRepositoryInterface */
     protected $imageRepository;
@@ -15,7 +16,8 @@ class ImageController extends Controller {
 
     public function __construct(
         ImageRepositoryInterface $imageRepository
-    ) {
+    )
+    {
         $this->imageRepository = $imageRepository;
     }
 
@@ -26,14 +28,15 @@ class ImageController extends Controller {
      *
      * @return \Response
      */
-    public function index( PaginationRequest $request ) {
-        $paginate[ 'offset' ] = $request->offset();
-        $paginate[ 'limit' ] = $request->limit();
-        $paginate[ 'order' ] = $request->order();
-        $paginate[ 'direction' ] = $request->direction();
-        $paginate[ 'baseUrl' ] = action( 'Admin\ImageController@index' );
+    public function index( PaginationRequest $request )
+    {
+        $paginate[ 'offset' ]       = $request->offset();
+        $paginate[ 'limit' ]        = $request->limit();
+        $paginate[ 'order' ]        = $request->order();
+        $paginate[ 'direction' ]    = $request->direction();
+        $paginate[ 'baseUrl' ]      = action( 'Admin\ImageController@index' );
 
-        $count = $this->imageRepository->count();
+        $count  = $this->imageRepository->count();
         $models = $this->imageRepository->get(
             $paginate[ 'order' ],
             $paginate[ 'direction' ],
@@ -44,8 +47,8 @@ class ImageController extends Controller {
         return view(
             'pages.admin.images.index',
             [
-                'models' => $models,
-                'count' => $count,
+                'models'   => $models,
+                'count'    => $count,
                 'paginate' => $paginate,
             ]
         );
@@ -56,7 +59,8 @@ class ImageController extends Controller {
      *
      * @return \Response
      */
-    public function create() {
+    public function create()
+    {
         return view(
             'pages.admin.images.edit',
             [
@@ -73,7 +77,8 @@ class ImageController extends Controller {
      *
      * @return \Response
      */
-    public function store( ImageRequest $request ) {
+    public function store( ImageRequest $request )
+    {
         $input = $request->only(
             [
                 'url',
@@ -91,9 +96,9 @@ class ImageController extends Controller {
                 'height'
             ]
         );
-        $input[ 'is_local' ] = $request->get( 'is_local', 0 );
 
-        $input[ 'is_enabled' ] = $request->get( 'is_enabled', 0 );
+        $input[ 'is_local' ]    = $request->get( 'is_local', 0 );
+        $input[ 'is_enabled' ]  = $request->get( 'is_enabled', 0 );
         $model = $this->imageRepository->create( $input );
 
         if( empty( $model ) ) {
@@ -114,7 +119,8 @@ class ImageController extends Controller {
      *
      * @return \Response
      */
-    public function show( $id ) {
+    public function show( $id )
+    {
         $model = $this->imageRepository->find( $id );
         if( empty( $model ) ) {
             abort( 404 );
@@ -136,7 +142,8 @@ class ImageController extends Controller {
      *
      * @return \Response
      */
-    public function edit( $id ) {
+    public function edit( $id )
+    {
         //
     }
 
@@ -148,7 +155,8 @@ class ImageController extends Controller {
      *
      * @return \Response
      */
-    public function update( $id, ImageRequest $request ) {
+    public function update( $id, ImageRequest $request )
+    {
         /** @var \App\Models\Image $model */
         $model = $this->imageRepository->find( $id );
         if( empty( $model ) ) {
@@ -171,9 +179,9 @@ class ImageController extends Controller {
                 'height'
             ]
         );
-        $input[ 'is_local' ] = $request->get( 'is_local', 0 );
 
-        $input[ 'is_enabled' ] = $request->get( 'is_enabled', 0 );
+        $input[ 'is_local' ]    = $request->get( 'is_local', 0 );
+        $input[ 'is_enabled' ]  = $request->get( 'is_enabled', 0 );
         $this->imageRepository->update( $model, $input );
 
         return redirect()
@@ -188,7 +196,8 @@ class ImageController extends Controller {
      *
      * @return \Response
      */
-    public function destroy( $id ) {
+    public function destroy( $id )
+    {
         /** @var \App\Models\Image $model */
         $model = $this->imageRepository->find( $id );
         if( empty( $model ) ) {

@@ -20,7 +20,7 @@ class PasswordController extends Controller
     /** @var string $returnAction */
     protected $returnAction = '';
 
-    public function __construct(AuthenticatableServiceInterface $authenticatableService)
+    public function __construct( AuthenticatableServiceInterface $authenticatableService )
     {
         $this->authenticatableService = $authenticatableService;
     }
@@ -32,8 +32,11 @@ class PasswordController extends Controller
      */
     public function getForgotPassword()
     {
-        return view($this->emailSetPageView, [
-        ]);
+        return view(
+            $this->emailSetPageView,
+            [
+            ]
+        );
     }
 
     /**
@@ -43,12 +46,14 @@ class PasswordController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function postForgotPassword(ForgotPasswordRequest $request)
+    public function postForgotPassword( ForgotPasswordRequest $request )
     {
-        $email = $request->get('email');
-        $this->authenticatableService->sendPasswordResetEmail($email);
+        $email = $request->get( 'email' );
+        $this->authenticatableService->sendPasswordResetEmail( $email );
 
-        return redirect()->back()->with('status', 'success');
+        return redirect()
+            ->back()
+            ->with( 'status', 'success' );
     }
 
     /**
@@ -58,20 +63,23 @@ class PasswordController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getResetPassword($token = null)
+    public function getResetPassword( $token = null )
     {
-        if (empty($token)) {
-            \App::abort(404);
+        if( empty( $token ) ) {
+            \App::abort( 404 );
         }
 
-        $user = $this->authenticatableService->getUserByPasswordResetToken($token);
-        if (empty($user)) {
-            \App::abort(404);
+        $user = $this->authenticatableService->getUserByPasswordResetToken( $token );
+        if( empty( $user ) ) {
+            \App::abort( 404 );
         }
 
-        return view($this->passwordResetPageView, [
-            'token' => $token,
-        ]);
+        return view(
+            $this->passwordResetPageView,
+            [
+                'token' => $token,
+            ]
+        );
     }
 
     /**
@@ -81,17 +89,19 @@ class PasswordController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function postResetPassword(ResetPasswordRequest $request)
+    public function postResetPassword( ResetPasswordRequest $request )
     {
-        $email = $request->get('email');
-        $token = $request->get('token');
-        $password = $request->get('password');
-        if ($password == $request->get('password_confirmation')) {
-            if ($this->authenticatableService->resetPassword($email, $password, $token)) {
-                return \Redirect::action($this->returnAction);
+        $email = $request->get( 'email' );
+        $token = $request->get( 'token' );
+        $password = $request->get( 'password' );
+        if( $password == $request->get( 'password_confirmation' ) ) {
+            if( $this->authenticatableService->resetPassword( $email, $password, $token ) ) {
+                return \Redirect::action( $this->returnAction );
             }
         }
 
-        return redirect()->back()->withInput($request->only('email'));
+        return redirect()
+            ->back()
+            ->withInput( $request->only( 'email' ) );
     }
 }

@@ -7,7 +7,8 @@ use App\Repositories\AdminUserNotificationRepositoryInterface;
 use App\Http\Requests\Admin\AdminUserNotificationRequest;
 use App\Http\Requests\PaginationRequest;
 
-class AdminUserNotificationController extends Controller {
+class AdminUserNotificationController extends Controller
+{
 
     /** @var \App\Repositories\AdminUserNotificationRepositoryInterface */
     protected $adminUserNotificationRepository;
@@ -15,7 +16,8 @@ class AdminUserNotificationController extends Controller {
 
     public function __construct(
         AdminUserNotificationRepositoryInterface $adminUserNotificationRepository
-    ) {
+    )
+    {
         $this->adminUserNotificationRepository = $adminUserNotificationRepository;
     }
 
@@ -26,14 +28,15 @@ class AdminUserNotificationController extends Controller {
      *
      * @return \Response
      */
-    public function index( PaginationRequest $request ) {
-        $paginate[ 'offset' ] = $request->offset();
-        $paginate[ 'limit' ] = $request->limit();
-        $paginate[ 'order' ] = $request->order();
-        $paginate[ 'direction' ] = $request->direction();
-        $paginate[ 'baseUrl' ] = action( 'Admin\AdminUserNotificationController@index' );
+    public function index( PaginationRequest $request )
+    {
+        $paginate[ 'offset' ]       = $request->offset();
+        $paginate[ 'limit' ]        = $request->limit();
+        $paginate[ 'order' ]        = $request->order();
+        $paginate[ 'direction' ]    = $request->direction();
+        $paginate[ 'baseUrl' ]      = action( 'Admin\AdminUserNotificationController@index' );
 
-        $count = $this->adminUserNotificationRepository->count();
+        $count  = $this->adminUserNotificationRepository->count();
         $models = $this->adminUserNotificationRepository->get(
             $paginate[ 'order' ],
             $paginate[ 'direction' ],
@@ -56,7 +59,8 @@ class AdminUserNotificationController extends Controller {
      *
      * @return \Response
      */
-    public function create() {
+    public function create()
+    {
         return view(
             'pages.admin.admin-user-notifications.edit',
             [
@@ -73,7 +77,8 @@ class AdminUserNotificationController extends Controller {
      *
      * @return \Response
      */
-    public function store( AdminUserNotificationRequest $request ) {
+    public function store( AdminUserNotificationRequest $request )
+    {
         $input = $request->only(
             [
                 'category_type',
@@ -86,7 +91,7 @@ class AdminUserNotificationController extends Controller {
         );
 
         $input[ 'sent_at' ] = ( $input[ 'sent_at' ] != "" ) ? $input[ 'sent_at' ] : null;
-        $input[ 'read' ] = $request->get( 'read', 0 );
+        $input[ 'read' ]    = $request->get( 'read', 0 );
 
         $model = $this->adminUserNotificationRepository->create( $input );
 
@@ -108,7 +113,8 @@ class AdminUserNotificationController extends Controller {
      *
      * @return \Response
      */
-    public function show( $id ) {
+    public function show( $id )
+    {
         $model = $this->adminUserNotificationRepository->find( $id );
         if( empty( $model ) ) {
             abort( 404 );
@@ -130,7 +136,8 @@ class AdminUserNotificationController extends Controller {
      *
      * @return \Response
      */
-    public function edit( $id ) {
+    public function edit( $id )
+    {
         //
     }
 
@@ -142,7 +149,8 @@ class AdminUserNotificationController extends Controller {
      *
      * @return \Response
      */
-    public function update( $id, AdminUserNotificationRequest $request ) {
+    public function update( $id, AdminUserNotificationRequest $request )
+    {
         /** @var \App\Models\AdminUserNotification $model */
         $model = $this->adminUserNotificationRepository->find( $id );
         if( empty( $model ) ) {
@@ -160,7 +168,7 @@ class AdminUserNotificationController extends Controller {
         );
 
         $input[ 'sent_at' ] = ( $input[ 'sent_at' ] != "" ) ? $input[ 'sent_at' ] : null;
-        $input[ 'read' ] = $request->get( 'read', 0 );
+        $input[ 'read' ]    = $request->get( 'read', 0 );
 
         $this->adminUserNotificationRepository->update( $model, $input );
 
@@ -176,7 +184,8 @@ class AdminUserNotificationController extends Controller {
      *
      * @return \Response
      */
-    public function destroy( $id ) {
+    public function destroy( $id )
+    {
         /** @var \App\Models\AdminUserNotification $model */
         $model = $this->adminUserNotificationRepository->find( $id );
         if( empty( $model ) ) {

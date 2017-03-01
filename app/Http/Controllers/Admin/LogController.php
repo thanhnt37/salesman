@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Repositories\LogRepositoryInterface;
 use App\Http\Requests\PaginationRequest;
 
-class LogController extends Controller {
+class LogController extends Controller
+{
 
     /** @var \App\Repositories\LogRepositoryInterface */
     protected $logRepository;
@@ -14,7 +15,8 @@ class LogController extends Controller {
 
     public function __construct(
         LogRepositoryInterface $logRepository
-    ) {
+    )
+    {
         $this->logRepository = $logRepository;
     }
 
@@ -25,8 +27,9 @@ class LogController extends Controller {
      *
      * @return \Response
      */
-    public function index( PaginationRequest $request ) {
-        $paginate[ 'offset' ]   = $request->offset();
+    public function index( PaginationRequest $request )
+    {
+        $paginate[ 'offset' ]       = $request->offset();
         $paginate[ 'limit' ]        = $request->limit();
         $paginate[ 'order' ]        = $request->order();
         $paginate[ 'direction' ]    = $request->direction();

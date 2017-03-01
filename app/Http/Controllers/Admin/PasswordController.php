@@ -16,7 +16,7 @@ class PasswordController extends PasswordControllerBase
     /** @var string $returnAction */
     protected $returnAction = 'Admin\IndexController@index';
 
-    public function __construct(AdminUserServiceInterface $adminUserService)
+    public function __construct( AdminUserServiceInterface $adminUserService )
     {
         $this->authenticatableService = $adminUserService;
     }

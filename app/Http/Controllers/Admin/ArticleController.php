@@ -30,18 +30,18 @@ class ArticleController extends Controller
     protected $imageService;
 
     public function __construct(
-        ArticleRepositoryInterface $articleRepository,
-        ArticleServiceInterface $articleService,
-        FileUploadServiceInterface $fileUploadService,
-        ImageRepositoryInterface $imageRepository,
-        ImageServiceInterface $imageService
+        ArticleRepositoryInterface  $articleRepository,
+        ArticleServiceInterface     $articleService,
+        FileUploadServiceInterface  $fileUploadService,
+        ImageRepositoryInterface    $imageRepository,
+        ImageServiceInterface       $imageService
     )
     {
-        $this->articleRepository = $articleRepository;
-        $this->articleService = $articleService;
-        $this->fileUploadService = $fileUploadService;
-        $this->imageRepository = $imageRepository;
-        $this->imageService = $imageService;
+        $this->articleRepository    = $articleRepository;
+        $this->articleService       = $articleService;
+        $this->fileUploadService    = $fileUploadService;
+        $this->imageRepository      = $imageRepository;
+        $this->imageService         = $imageService;
     }
 
     /**
@@ -53,13 +53,13 @@ class ArticleController extends Controller
      */
     public function index( PaginationRequest $request )
     {
-        $paginate[ 'offset' ] = $request->offset();
-        $paginate[ 'limit' ] = $request->limit();
-        $paginate[ 'order' ] = $request->order();
-        $paginate[ 'direction' ] = $request->direction();
-        $paginate[ 'baseUrl' ] = action( 'Admin\ArticleController@index' );
+        $paginate[ 'offset' ]       = $request->offset();
+        $paginate[ 'limit' ]        = $request->limit();
+        $paginate[ 'order' ]        = $request->order();
+        $paginate[ 'direction' ]    = $request->direction();
+        $paginate[ 'baseUrl' ]      = action( 'Admin\ArticleController@index' );
 
-        $count = $this->articleRepository->count();
+        $count  = $this->articleRepository->count();
         $models = $this->articleRepository->get(
             $paginate[ 'order' ],
             $paginate[ 'direction' ],
@@ -114,10 +114,10 @@ class ArticleController extends Controller
             ]
         );
 
-        $input[ 'is_enabled' ] = $request->get( 'is_enabled', 0 );
-        $input[ 'locale' ] = $request->get( 'locale', 'ja' );
-        $input[ 'publish_started_at' ] = ( $input[ 'publish_started_at' ] != "" ) ? $input[ 'publish_started_at' ] : null;
-        $input[ 'publish_ended_at' ] = ( $input[ 'publish_ended_at' ] != "" ) ? $input[ 'publish_ended_at' ] : null;
+        $input[ 'is_enabled' ]          = $request->get( 'is_enabled', 0 );
+        $input[ 'locale' ]              = $request->get( 'locale', 'ja' );
+        $input[ 'publish_started_at' ]  = ( $input[ 'publish_started_at' ] != "" ) ? $input[ 'publish_started_at' ] : null;
+        $input[ 'publish_ended_at' ]    = ( $input[ 'publish_ended_at' ] != "" ) ? $input[ 'publish_ended_at' ] : null;
 
         $model = $this->articleRepository->create( $input );
 
@@ -128,10 +128,10 @@ class ArticleController extends Controller
         }
 
         if( $request->hasFile( 'cover_image' ) ) {
-            $file = $request->file( 'cover_image' );
-            $mediaType = $file->getClientMimeType();
-            $path = $file->getPathname();
-            $image = $this->fileUploadService->upload(
+            $file       = $request->file( 'cover_image' );
+            $mediaType  = $file->getClientMimeType();
+            $path       = $file->getPathname();
+            $image      = $this->fileUploadService->upload(
                 'article-cover-image',
                 $path,
                 $mediaType,
@@ -215,8 +215,8 @@ class ArticleController extends Controller
             ]
         );
 
-        $input[ 'is_enabled' ] = $request->get( 'is_enabled', 0 );
-        $input[ 'locale' ] = $request->get( 'locale', 'ja' );
+        $input[ 'is_enabled' ]  = $request->get( 'is_enabled', 0 );
+        $input[ 'locale' ]      = $request->get( 'locale', 'ja' );
         if( $request->get( 'publish_started_at' ) != "" ) {
             $input[ 'publish_started_at' ] = $request->get( 'publish_started_at' );
         }
@@ -227,10 +227,10 @@ class ArticleController extends Controller
         $this->articleRepository->update( $article, $input );
 
         if( $request->hasFile( 'cover_image' ) ) {
-            $currentImage = $article->coverImage;
-            $file = $request->file( 'cover_image' );
-            $mediaType = $file->getClientMimeType();
-            $path = $file->getPathname();
+            $currentImage   = $article->coverImage;
+            $file           = $request->file( 'cover_image' );
+            $mediaType      = $file->getClientMimeType();
+            $path           = $file->getPathname();
             $newImage = $this->fileUploadService->upload(
                 'article-cover-image',
                 $path,
@@ -286,30 +286,32 @@ class ArticleController extends Controller
      *
      * @return \Response
      */
-    public function preview(BaseRequest $request)
+    public function preview( BaseRequest $request )
     {
-        $locale = $request->input('language');
+        $locale     = $request->input( 'language' );
 
-        $content = $this->articleService->filterContent($request->input('content'), $locale);
-        $title = $request->input('title');
-        $response = response()->view('pages.admin.articles.preview', [
-            'content' => $content,
-            'title' => $title,
-        ]);
-        //        $response->headers->set('Content-Security-Policy', "default-src 'self' 'unsafe-inline'");
-        $response->headers->set('X-XSS-Protection', '0');
+        $content    = $this->articleService->filterContent( $request->input( 'content' ), $locale );
+        $title      = $request->input( 'title' );
+        $response   = response()->view(
+            'pages.admin.articles.preview',
+            [
+                'content' => $content,
+                'title'   => $title,
+            ]
+        );
+        $response->headers->set( 'X-XSS-Protection', '0' );
 
         return $response;
     }
-    
+
     public function getImages( PaginationRequest $request )
     {
-        $entityId = intval( $request->input( 'article_id', 0 ) );
-        $type = $request->input( 'type', 'article-image' );
+        $entityId   = intval( $request->input( 'article_id', 0 ) );
+        $type       = $request->input( 'type', 'article-image' );
 
         if( $entityId == 0 ) {
-            $imageIds = $this->articleService->getImageIdsFromSession();
-            $models = $this->imageRepository->allByIds( $imageIds );
+            $imageIds   = $this->articleService->getImageIdsFromSession();
+            $models     = $this->imageRepository->allByIds( $imageIds );
         } else {
             /** @var \App\Models\Image[] $models */
             $models = $this->imageRepository->allByFileCategoryTypeAndEntityId( $type, $entityId );
@@ -333,18 +335,18 @@ class ArticleController extends Controller
             abort( 400, 'No Image File' );
         }
 
-        $type = $request->input( 'type', 'article-image' );
-        $entityId = $request->input( 'article_id', 0 );
+        $type       = $request->input( 'type', 'article-image' );
+        $entityId   = $request->input( 'article_id', 0 );
 
         $conf = config( 'file.categories.' . $type );
         if( empty( $conf ) ) {
             abort( 400, 'Invalid type: ' . $type );
         }
 
-        $file = $request->file( 'file' );
-        $mediaType = $file->getClientMimeType();
-        $path = $file->getPathname();
-        $image = $this->fileUploadService->upload(
+        $file       = $request->file( 'file' );
+        $mediaType  = $file->getClientMimeType();
+        $path       = $file->getPathname();
+        $image      = $this->fileUploadService->upload(
             $type,
             $path,
             $mediaType,

@@ -7,7 +7,8 @@ use App\Repositories\UserNotificationRepositoryInterface;
 use App\Http\Requests\Admin\UserNotificationRequest;
 use App\Http\Requests\PaginationRequest;
 
-class UserNotificationController extends Controller {
+class UserNotificationController extends Controller
+{
 
     /** @var \App\Repositories\UserNotificationRepositoryInterface */
     protected $userNotificationRepository;
@@ -15,7 +16,8 @@ class UserNotificationController extends Controller {
 
     public function __construct(
         UserNotificationRepositoryInterface $userNotificationRepository
-    ) {
+    )
+    {
         $this->userNotificationRepository = $userNotificationRepository;
     }
 
@@ -26,14 +28,15 @@ class UserNotificationController extends Controller {
      *
      * @return \Response
      */
-    public function index( PaginationRequest $request ) {
-        $paginate[ 'offset' ] = $request->offset();
-        $paginate[ 'limit' ] = $request->limit();
-        $paginate[ 'order' ] = $request->order();
-        $paginate[ 'direction' ] = $request->direction();
-        $paginate[ 'baseUrl' ] = action( 'Admin\UserNotificationController@index' );
+    public function index( PaginationRequest $request )
+    {
+        $paginate[ 'offset' ]       = $request->offset();
+        $paginate[ 'limit' ]        = $request->limit();
+        $paginate[ 'order' ]        = $request->order();
+        $paginate[ 'direction' ]    = $request->direction();
+        $paginate[ 'baseUrl' ]      = action( 'Admin\UserNotificationController@index' );
 
-        $count = $this->userNotificationRepository->count();
+        $count  = $this->userNotificationRepository->count();
         $models = $this->userNotificationRepository->get(
             $paginate[ 'order' ],
             $paginate[ 'direction' ],
@@ -56,7 +59,8 @@ class UserNotificationController extends Controller {
      *
      * @return \Response
      */
-    public function create() {
+    public function create()
+    {
         return view(
             'pages.admin.user-notifications.edit',
             [
@@ -73,7 +77,8 @@ class UserNotificationController extends Controller {
      *
      * @return \Response
      */
-    public function store( UserNotificationRequest $request ) {
+    public function store( UserNotificationRequest $request )
+    {
         $input = $request->only(
             [
                 'category_type',
@@ -108,7 +113,8 @@ class UserNotificationController extends Controller {
      *
      * @return \Response
      */
-    public function show( $id ) {
+    public function show( $id )
+    {
         $model = $this->userNotificationRepository->find( $id );
         if( empty( $model ) ) {
             abort( 404 );
@@ -130,7 +136,8 @@ class UserNotificationController extends Controller {
      *
      * @return \Response
      */
-    public function edit( $id ) {
+    public function edit( $id )
+    {
         //
     }
 
@@ -142,7 +149,8 @@ class UserNotificationController extends Controller {
      *
      * @return \Response
      */
-    public function update( $id, UserNotificationRequest $request ) {
+    public function update( $id, UserNotificationRequest $request )
+    {
         /** @var \App\Models\UserNotification $model */
         $model = $this->userNotificationRepository->find( $id );
         if( empty( $model ) ) {
@@ -161,7 +169,7 @@ class UserNotificationController extends Controller {
 
         $input[ 'sent_at' ] = ( $input[ 'sent_at' ] != "" ) ? $input[ 'sent_at' ] : null;
         $input[ 'read' ]    = $request->get( 'read', 0 );
- 
+
         $this->userNotificationRepository->update( $model, $input );
 
         return redirect()
@@ -176,7 +184,8 @@ class UserNotificationController extends Controller {
      *
      * @return \Response
      */
-    public function destroy( $id ) {
+    public function destroy( $id )
+    {
         /** @var \App\Models\UserNotification $model */
         $model = $this->userNotificationRepository->find( $id );
         if( empty( $model ) ) {
