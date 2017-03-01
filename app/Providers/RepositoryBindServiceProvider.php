@@ -4,18 +4,21 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class RepositoryBindServiceProvider extends ServiceProvider {
+class RepositoryBindServiceProvider extends ServiceProvider
+{
     /**
      * Bootstrap any application services.
      */
-    public function boot() {
+    public function boot()
+    {
         //
     }
 
     /**
      * Register any application services.
      */
-    public function register() {
+    public function register()
+    {
         $this->app->singleton(
             \App\Repositories\AdminUserRepositoryInterface::class,
             \App\Repositories\Eloquent\AdminUserRepository::class
