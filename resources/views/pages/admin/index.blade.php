@@ -10,11 +10,11 @@
 @stop
 
 @section('title')
-{{ config('site.name') }} | Admin | Dashboard
+    {{ config('site.name') }} | Admin | Dashboard
 @stop
 
 @section('header')
-Dashboard
+    Dashboard
 @stop
 
 @section('content')
