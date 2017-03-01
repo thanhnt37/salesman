@@ -14,11 +14,11 @@ class Locale
      *
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle( $request, Closure $next )
     {
         $locale = \LocaleHelper::getLocale();
-        \App::setLocale($locale);
+        \App::setLocale( $locale );
 
-        return $next($request);
+        return $next( $request );
     }
 }

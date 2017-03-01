@@ -15,7 +15,7 @@ class Authenticate
      *
      * @param UserServiceInterface $userService
      */
-    public function __construct(UserServiceInterface $userService)
+    public function __construct( UserServiceInterface $userService )
     {
         $this->userService = $userService;
     }
@@ -28,17 +28,17 @@ class Authenticate
      *
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle( $request, Closure $next )
     {
-        if (!$this->userService->isSignedIn()) {
-            if ($request->ajax()) {
-                return response('Unauthorized.', 401);
+        if( !$this->userService->isSignedIn() ) {
+            if( $request->ajax() ) {
+                return response( 'Unauthorized.', 401 );
             } else {
-                return \RedirectHelper::guest(action('User\AuthController@getSignIn'));
+                return \RedirectHelper::guest( action( 'User\AuthController@getSignIn' ) );
             }
         }
-        view()->share('authUser', $this->userService->getUser());
+        view()->share( 'authUser', $this->userService->getUser() );
 
-        return $next($request);
+        return $next( $request );
     }
 }

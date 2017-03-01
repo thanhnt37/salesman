@@ -20,11 +20,12 @@ class SetDefaultValues
      * @param AdminUserNotificationServiceInterface $adminUserNotificationService
      */
     public function __construct(
-        AdminUserServiceInterface $adminUserService,
-        AdminUserNotificationServiceInterface $adminUserNotificationService
-    ) {
-        $this->adminUserService = $adminUserService;
-        $this->adminUserNotificationService = $adminUserNotificationService;
+        AdminUserServiceInterface               $adminUserService,
+        AdminUserNotificationServiceInterface   $adminUserNotificationService
+    )
+    {
+        $this->adminUserService                 = $adminUserService;
+        $this->adminUserNotificationService     = $adminUserNotificationService;
     }
 
     /**
@@ -35,23 +36,23 @@ class SetDefaultValues
      *
      * @return mixed
      */
-    public function handle($request, \Closure $next)
+    public function handle( $request, \Closure $next )
     {
         $user = $this->adminUserService->getUser();
-        \View::share('authUser', $user);
-        \View::share('menu', '');
+        \View::share( 'authUser', $user );
+        \View::share( 'menu', '' );
 
-        if (!empty($user)) {
-            $notificationCount = $this->adminUserNotificationService->getUnreadNotificationCount($user);
-            $notifications = $this->adminUserNotificationService->getNotifications($user, 0, 10);
+        if( !empty( $user ) ) {
+            $notificationCount  = $this->adminUserNotificationService->getUnreadNotificationCount( $user );
+            $notifications      = $this->adminUserNotificationService->getNotifications( $user, 0, 10 );
         } else {
-            $notificationCount = 0;
-            $notifications = 0;
+            $notificationCount  = 0;
+            $notifications      = 0;
         }
 
-        \View::share('unreadNotificationCount', $notificationCount);
-        \View::share('notifications', $notifications);
+        \View::share( 'unreadNotificationCount', $notificationCount );
+        \View::share( 'notifications', $notifications );
 
-        return $next($request);
+        return $next( $request );
     }
 }

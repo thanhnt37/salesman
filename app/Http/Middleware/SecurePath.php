@@ -14,13 +14,13 @@ class SecurePath
      *
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle( $request, Closure $next )
     {
-        if (\App::environment('production') && !\Request::secure()) {
+        if( \App::environment( 'production' ) && !\Request::secure() ) {
             // The environment is production
-            return \Redirect::secure(\Request::path());
+            return \Redirect::secure( \Request::path() );
         }
 
-        return $next($request);
+        return $next( $request );
     }
 }

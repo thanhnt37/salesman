@@ -14,7 +14,7 @@ class SetDefaultValues
      *
      * @param UserServiceInterface $userService
      */
-    public function __construct(UserServiceInterface $userService)
+    public function __construct( UserServiceInterface $userService )
     {
         $this->userService = $userService;
     }
@@ -27,11 +27,11 @@ class SetDefaultValues
      *
      * @return mixed
      */
-    public function handle($request, \Closure $next)
+    public function handle( $request, \Closure $next )
     {
         $user = $this->userService->getUser();
-        \View::share('authUser', $user);
+        \View::share( 'authUser', $user );
 
-        return $next($request);
+        return $next( $request );
     }
 }

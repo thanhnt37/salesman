@@ -16,7 +16,7 @@ class HasRoleSuperUser
      *
      * @param AdminUserServiceInterface $adminUserService
      */
-    public function __construct(AdminUserServiceInterface $adminUserService)
+    public function __construct( AdminUserServiceInterface $adminUserService )
     {
         $this->adminUserService = $adminUserService;
     }
@@ -29,13 +29,13 @@ class HasRoleSuperUser
      *
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle( $request, Closure $next )
     {
         /** @var \App\Models\AdminUser $adminUser */
         $adminUser = $this->adminUserService->getUser();
-        if ($adminUser && $adminUser->hasRole(AdminUserRole::ROLE_SUPER_USER)) {
-            return $next($request);
+        if( $adminUser && $adminUser->hasRole( AdminUserRole::ROLE_SUPER_USER ) ) {
+            return $next( $request );
         }
-        \App::abort(403);
+        \App::abort( 403 );
     }
 }

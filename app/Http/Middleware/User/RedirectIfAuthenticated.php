@@ -14,7 +14,7 @@ class RedirectIfAuthenticated
      *
      * @param UserServiceInterface $userService
      */
-    public function __construct(UserServiceInterface $userService)
+    public function __construct( UserServiceInterface $userService )
     {
         $this->userService = $userService;
     }
@@ -27,12 +27,12 @@ class RedirectIfAuthenticated
      *
      * @return mixed
      */
-    public function handle($request, \Closure $next)
+    public function handle( $request, \Closure $next )
     {
-        if ($this->userService->isSignedIn()) {
-            return redirect()->action('User\IndexController@index');
+        if( $this->userService->isSignedIn() ) {
+            return redirect()->action( 'User\IndexController@index' );
         }
 
-        return $next($request);
+        return $next( $request );
     }
 }

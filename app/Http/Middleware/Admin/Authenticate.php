@@ -15,7 +15,7 @@ class Authenticate
      *
      * @param AdminUserServiceInterface $adminUserService
      */
-    public function __construct(AdminUserServiceInterface $adminUserService)
+    public function __construct( AdminUserServiceInterface $adminUserService )
     {
         $this->adminUserService = $adminUserService;
     }
@@ -28,17 +28,20 @@ class Authenticate
      *
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle( $request, Closure $next )
     {
-        if (!$this->adminUserService->isSignedIn()) {
-            if ($request->ajax()) {
-                return response('Unauthorized.', 401);
+        if( !$this->adminUserService->isSignedIn() ) {
+            if( $request->ajax() ) {
+                return response( 'Unauthorized.', 401 );
             } else {
-                return \RedirectHelper::guest(action('Admin\AuthController@getSignIn'), $this->adminUserService->getGuardName());
+                return \RedirectHelper::guest(
+                    action( 'Admin\AuthController@getSignIn' ),
+                    $this->adminUserService->getGuardName()
+                );
             }
         }
-        view()->share('authUser', $this->adminUserService->getUser());
+        view()->share( 'authUser', $this->adminUserService->getUser() );
 
-        return $next($request);
+        return $next( $request );
     }
 }
