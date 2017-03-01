@@ -9,7 +9,7 @@ class UserRequest extends BaseRequest
     /** @var \App\Repositories\UserRepositoryInterface */
     protected $userRepository;
 
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct( UserRepositoryInterface $userRepository )
     {
         $this->userRepository = $userRepository;
     }

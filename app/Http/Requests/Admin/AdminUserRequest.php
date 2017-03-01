@@ -9,7 +9,7 @@ class AdminUserRequest extends BaseRequest
     /** @var \App\Repositories\AdminUserRepositoryInterface */
     protected $adminUserRepository;
 
-    public function __construct(AdminUserRepositoryInterface $adminUserRepository)
+    public function __construct( AdminUserRepositoryInterface $adminUserRepository )
     {
         $this->adminUserRepository = $adminUserRepository;
     }

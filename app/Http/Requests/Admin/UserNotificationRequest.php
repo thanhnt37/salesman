@@ -9,7 +9,7 @@ class UserNotificationRequest extends BaseRequest
     /** @var \App\Repositories\UserNotificationRepositoryInterface */
     protected $userNotificationRepository;
 
-    public function __construct(UserNotificationRepositoryInterface $userNotificationRepository)
+    public function __construct( UserNotificationRepositoryInterface $userNotificationRepository )
     {
         $this->userNotificationRepository = $userNotificationRepository;
     }

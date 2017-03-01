@@ -9,7 +9,7 @@ class LogRequest extends BaseRequest
     /** @var \App\Repositories\LogRepositoryInterface */
     protected $logRepository;
 
-    public function __construct(LogRepositoryInterface $logRepository)
+    public function __construct( LogRepositoryInterface $logRepository )
     {
         $this->logRepository = $logRepository;
     }

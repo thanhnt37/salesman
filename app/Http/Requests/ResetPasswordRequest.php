@@ -22,20 +22,20 @@ class ResetPasswordRequest extends BaseRequest
     public function rules()
     {
         return [
-            'email' => 'required|email',
-            'password' => 'required',
+            'email'                 => 'required|email',
+            'password'              => 'required',
             'password_confirmation' => 'required',
-            'token' => 'required',
+            'token'                 => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'token.required' => '',
-            'email.required' => '',
-            'email.email' => '',
-            'password.required' => '',
+            'token.required'                 => '',
+            'email.required'                 => '',
+            'email.email'                    => '',
+            'password.required'              => '',
             'password_confirmation.required' => '',
         ];
     }

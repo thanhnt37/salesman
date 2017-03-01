@@ -32,7 +32,7 @@ class PasswordRequest extends BaseRequest
     {
         return [
             'email.required' => '',
-            'email.email' => '',
+            'email.email'    => '',
         ];
     }
 }

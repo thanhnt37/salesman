@@ -9,7 +9,7 @@ class ImageRequest extends BaseRequest
     /** @var \App\Repositories\ImageRepositoryInterface */
     protected $imageRepository;
 
-    public function __construct(ImageRepositoryInterface $imageRepository)
+    public function __construct( ImageRepositoryInterface $imageRepository )
     {
         $this->imageRepository = $imageRepository;
     }

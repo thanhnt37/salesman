@@ -9,7 +9,7 @@ class ArticleRequest extends BaseRequest
     /** @var \App\Repositories\ArticleRepositoryInterface */
     protected $articleRepository;
 
-    public function __construct(ArticleRepositoryInterface $articleRepository)
+    public function __construct( ArticleRepositoryInterface $articleRepository )
     {
         $this->articleRepository = $articleRepository;
     }

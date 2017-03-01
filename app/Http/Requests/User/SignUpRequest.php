@@ -29,7 +29,7 @@ class SignUpRequest extends BaseRequest
     public function rules()
     {
         return [
-            'email' => 'required|email|unique:users,email',
+            'email'    => 'required|email|unique:users,email',
             'password' => 'required|min:6',
         ];
     }
@@ -37,10 +37,10 @@ class SignUpRequest extends BaseRequest
     public function messages()
     {
         return [
-            'email.required' => '',
-            'email.email' => '',
+            'email.required'    => '',
+            'email.email'       => '',
             'password.required' => '',
-            'password.min' => '',
+            'password.min'      => '',
         ];
     }
 }

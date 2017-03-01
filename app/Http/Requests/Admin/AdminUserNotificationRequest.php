@@ -9,7 +9,7 @@ class AdminUserNotificationRequest extends BaseRequest
     /** @var \App\Repositories\AdminUserNotificationRepositoryInterface */
     protected $adminUserNotificationRepository;
 
-    public function __construct(AdminUserNotificationRepositoryInterface $adminUserNotificationRepository)
+    public function __construct( AdminUserNotificationRepositoryInterface $adminUserNotificationRepository )
     {
         $this->adminUserNotificationRepository = $adminUserNotificationRepository;
     }

@@ -9,7 +9,7 @@ class SiteConfigurationRequest extends BaseRequest
     /** @var \App\Repositories\SiteConfigurationRepositoryInterface */
     protected $siteConfigurationRepository;
 
-    public function __construct(SiteConfigurationRepositoryInterface $siteConfigurationRepository)
+    public function __construct( SiteConfigurationRepositoryInterface $siteConfigurationRepository )
     {
         $this->siteConfigurationRepository = $siteConfigurationRepository;
     }
