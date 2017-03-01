@@ -9,7 +9,7 @@ class Worker
      *
      * @return bool
      */
-    public function execute($job)
+    public function execute( $job )
     {
         return true;
     }

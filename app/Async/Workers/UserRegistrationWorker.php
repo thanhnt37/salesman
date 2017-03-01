@@ -16,7 +16,8 @@ class UserRegistrationWorker extends Worker
     public function __construct(
         UserRepositoryInterface $userRepository,
         MailService $mailService
-    ) {
+    )
+    {
         $this->userRepository = $userRepository;
         $this->mailService = $mailService;
     }
@@ -26,14 +27,14 @@ class UserRegistrationWorker extends Worker
      *
      * @return bool
      */
-    public function execute($job)
+    public function execute( $job )
     {
         $userId = $job->user_id;
-        $user = $this->userRepository->find($userId);
-        if (empty($user)) {
+        $user = $this->userRepository->find( $userId );
+        if( empty( $user ) ) {
             return false;
         }
-        $this->mailService->sendRegisteredMail($user);
+        $this->mailService->sendRegisteredMail( $user );
 
         return true;
     }
