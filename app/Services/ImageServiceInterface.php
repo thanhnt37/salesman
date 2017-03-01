@@ -12,5 +12,5 @@ interface ImageServiceInterface extends BaseServiceInterface
      *
      * @return array
      */
-    public function convert($src, $dst, $format, $size);
+    public function convert( $src, $dst, $format, $size );
 }

@@ -14,5 +14,5 @@ interface GoogleAnalyticsServiceInterface extends BaseServiceInterface
      *
      * @return array
      */
-    public function getPageViews($profileId);
+    public function getPageViews( $profileId );
 }

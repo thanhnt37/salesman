@@ -15,10 +15,11 @@ class UserServiceAuthenticationService extends ServiceAuthenticationService impl
     protected $authenticatableRepository;
 
     public function __construct(
-        UserRepositoryInterface $authenticatableRepository,
-        UserServiceAuthenticationRepositoryInterface $serviceAuthenticationRepository
-    ) {
-        $this->authenticatableRepository = $authenticatableRepository;
-        $this->serviceAuthenticationRepository = $serviceAuthenticationRepository;
+        UserRepositoryInterface                         $authenticatableRepository,
+        UserServiceAuthenticationRepositoryInterface    $serviceAuthenticationRepository
+    )
+    {
+        $this->authenticatableRepository        = $authenticatableRepository;
+        $this->serviceAuthenticationRepository  = $serviceAuthenticationRepository;
     }
 }

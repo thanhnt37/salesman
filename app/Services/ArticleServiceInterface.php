@@ -10,7 +10,7 @@ interface ArticleServiceInterface extends BaseServiceInterface
      *
      * @return string
      */
-    public function filterContent($content, $locale = null);
+    public function filterContent( $content, $locale = null );
 
     /**
      *
@@ -20,12 +20,12 @@ interface ArticleServiceInterface extends BaseServiceInterface
     /**
      * @param int $imageId
      */
-    public function addImageIdToSession($imageId);
+    public function addImageIdToSession( $imageId );
 
     /**
      * @param int $imageId
      */
-    public function removeImageIdFromSession($imageId);
+    public function removeImageIdFromSession( $imageId );
 
     /**
      * @return array
@@ -37,5 +37,5 @@ interface ArticleServiceInterface extends BaseServiceInterface
      *
      * @return bool
      */
-    public function hasImageIdInSession($imageId);
+    public function hasImageIdInSession( $imageId );
 }

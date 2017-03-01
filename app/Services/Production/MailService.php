@@ -11,51 +11,54 @@ class MailService extends BaseService implements MailServiceInterface
     {
     }
 
-    public function sendMail($title, $from, $to, $template, $data)
+    public function sendMail( $title, $from, $to, $template, $data )
     {
-        if (config('app.offline_mode')) {
+        if( config( 'app.offline_mode' ) ) {
             return true;
         }
 
-        if (\App::environment() != 'production') {
-            $title = '['.\App::environment().'] '.$title;
+        if( \App::environment() != 'production' ) {
+            $title = '[' . \App::environment() . '] ' . $title;
             $to = [
-                'address' => config('mail.tester'),
-                'name' => \App::environment().' Original: '.$to['address'],
+                'address' => config( 'mail.tester' ),
+                'name'    => \App::environment() . ' Original: ' . $to[ 'address' ],
             ];
         }
 
-        $client = new SesClient([
-            'credentials' => [
-                'key' => config('aws.key'),
-                'secret' => config('aws.secret'),
-            ],
-            'region' => config('aws.ses_region'),
-            'version' => 'latest',
-        ]);
+        $client = new SesClient(
+            [
+                'credentials' => [
+                    'key'    => config( 'aws.key' ),
+                    'secret' => config( 'aws.secret' ),
+                ],
+                'region'      => config( 'aws.ses_region' ),
+                'version'     => 'latest',
+            ]
+        );
 
         try {
-            $body = \View::make($template, $data)->render();
+            $body = \View::make( $template, $data )
+                         ->render();
             $sesData = [
-                'Source' => mb_encode_mimeheader($from['name']).' <'.$from['address'].'>',
+                'Source'      => mb_encode_mimeheader( $from[ 'name' ] ) . ' <' . $from[ 'address' ] . '>',
                 'Destination' => [
-                    'ToAddresses' => [$to['address']],
+                    'ToAddresses' => [$to[ 'address' ]],
                 ],
-                'Message' => [
+                'Message'     => [
                     'Subject' => [
-                        'Data' => $title,
+                        'Data'    => $title,
                         'Charset' => 'UTF-8',
                     ],
-                    'Body' => [
+                    'Body'    => [
                         'Html' => [
-                            'Data' => $body,
+                            'Data'    => $body,
                             'Charset' => 'UTF-8',
                         ],
                     ],
                 ],
             ];
-            $client->sendEmail($sesData);
-        } catch (\Exception $e) {
+            $client->sendEmail( $sesData );
+        } catch( \Exception $e ) {
             echo $e->getMessage(), "\n";
         }
 

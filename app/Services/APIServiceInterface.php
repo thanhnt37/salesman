@@ -9,7 +9,7 @@ interface APIServiceInterface extends BaseServiceInterface
      *
      * @return \Response
      */
-    public function error($type);
+    public function error( $type );
 
     /**
      * @param array  $models
@@ -21,14 +21,14 @@ interface APIServiceInterface extends BaseServiceInterface
      *
      * @return \Response
      */
-    public function listResponse($models, $key, $offset, $limit, $count, $statusCode = 200);
+    public function listResponse( $models, $key, $offset, $limit, $count, $statusCode = 200 );
 
     /**
      * @param \App\Models\Base[] $models
      *
      * @return array
      */
-    public function getAPIArray($models);
+    public function getAPIArray( $models );
 
     /**
      * @param array  $models
@@ -39,5 +39,5 @@ interface APIServiceInterface extends BaseServiceInterface
      *
      * @return array
      */
-    public function getAPIListObject($models, $key, $offset, $limit, $count);
+    public function getAPIListObject( $models, $key, $offset, $limit, $count );
 }

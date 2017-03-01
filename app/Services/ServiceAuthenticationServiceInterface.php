@@ -10,5 +10,5 @@ interface ServiceAuthenticationServiceInterface extends BaseServiceInterface
      *
      * @return \App\Models\AuthenticatableBase
      */
-    public function getAuthModelId($service, $input);
+    public function getAuthModelId( $service, $input );
 }

@@ -9,9 +9,10 @@ use App\Services\AdminUserNotificationServiceInterface;
 class AdminUserNotificationService extends NotificationService implements AdminUserNotificationServiceInterface
 {
     public function __construct(
-        AdminUserNotificationRepositoryInterface $notificationRepository,
-        AdminUserRepositoryInterface $adminUserRepository
-    ) {
-        parent::__construct($notificationRepository, $adminUserRepository);
+        AdminUserNotificationRepositoryInterface    $notificationRepository,
+        AdminUserRepositoryInterface                $adminUserRepository
+    )
+    {
+        parent::__construct( $notificationRepository, $adminUserRepository );
     }
 }

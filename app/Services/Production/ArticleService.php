@@ -8,44 +8,44 @@ class ArticleService extends BaseService implements ArticleServiceInterface
 {
     const IMAGE_ID_SESSION_KEY = 'article-image-id-session-key';
 
-    public function filterContent($content, $locale = null)
+    public function filterContent( $content, $locale = null )
     {
-        $locale = empty($locale) ? \App::getLocale() : $locale;
+        $locale = empty( $locale ) ? \App::getLocale() : $locale;
 
         return $content;
     }
 
     public function resetImageIdSession()
     {
-        \Session::put(self::IMAGE_ID_SESSION_KEY, []);
+        \Session::put( self::IMAGE_ID_SESSION_KEY, [] );
     }
 
-    public function addImageIdToSession($imageId)
+    public function addImageIdToSession( $imageId )
     {
-        $sessionIds = \Session::get(self::IMAGE_ID_SESSION_KEY, []);
-        array_push($sessionIds, intval($imageId));
-        \Session::put(self::IMAGE_ID_SESSION_KEY, array_values($sessionIds));
+        $sessionIds = \Session::get( self::IMAGE_ID_SESSION_KEY, [] );
+        array_push( $sessionIds, intval( $imageId ) );
+        \Session::put( self::IMAGE_ID_SESSION_KEY, array_values( $sessionIds ) );
     }
 
-    public function removeImageIdFromSession($imageId)
+    public function removeImageIdFromSession( $imageId )
     {
-        $sessionIds = \Session::get(self::IMAGE_ID_SESSION_KEY, []);
-        $pos = array_search(intval($imageId), $sessionIds);
-        if ($pos !== false) {
-            unset($sessionIds[$pos]);
-            \Session::put(self::IMAGE_ID_SESSION_KEY, array_values($sessionIds));
+        $sessionIds = \Session::get( self::IMAGE_ID_SESSION_KEY, [] );
+        $pos = array_search( intval( $imageId ), $sessionIds );
+        if( $pos !== false ) {
+            unset( $sessionIds[ $pos ] );
+            \Session::put( self::IMAGE_ID_SESSION_KEY, array_values( $sessionIds ) );
         }
     }
 
     public function getImageIdsFromSession()
     {
-        return \Session::get(self::IMAGE_ID_SESSION_KEY, []);
+        return \Session::get( self::IMAGE_ID_SESSION_KEY, [] );
     }
 
-    public function hasImageIdInSession($imageId)
+    public function hasImageIdInSession( $imageId )
     {
-        $sessionIds = \Session::get(self::IMAGE_ID_SESSION_KEY, []);
+        $sessionIds = \Session::get( self::IMAGE_ID_SESSION_KEY, [] );
 
-        return in_array(intval($imageId), $sessionIds);
+        return in_array( intval( $imageId ), $sessionIds );
     }
 }

@@ -15,11 +15,12 @@ class AdminUserService extends AuthenticatableService implements AdminUserServic
     protected $resetEmailTemplate = 'emails.admin.reset_password';
 
     public function __construct(
-        AdminUserRepositoryInterface $adminUserRepository,
-        AdminPasswordResetRepositoryInterface $adminPasswordResetRepository
-    ) {
-        $this->authenticatableRepository = $adminUserRepository;
-        $this->passwordResettableRepository = $adminPasswordResetRepository;
+        AdminUserRepositoryInterface            $adminUserRepository,
+        AdminPasswordResetRepositoryInterface   $adminPasswordResetRepository
+    )
+    {
+        $this->authenticatableRepository        = $adminUserRepository;
+        $this->passwordResettableRepository     = $adminPasswordResetRepository;
     }
 
     public function getGuardName()

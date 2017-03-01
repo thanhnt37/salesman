@@ -11,7 +11,7 @@ interface NotificationServiceInterface extends BaseServiceInterface
      *
      * @return \App\Models\Notification|null
      */
-    public function broadcastSystemMessage($type, $locale, $content);
+    public function broadcastSystemMessage( $type, $locale, $content );
 
     /**
      * @param int    $userId
@@ -23,7 +23,7 @@ interface NotificationServiceInterface extends BaseServiceInterface
      *
      * @return \App\Models\Notification|null
      */
-    public function sendNotification($userId, $categoryType, $type, $locale, $content, $data);
+    public function sendNotification( $userId, $categoryType, $type, $locale, $content, $data );
 
     /**
      * @param \App\Models\AuthenticatableBase $user
@@ -31,14 +31,14 @@ interface NotificationServiceInterface extends BaseServiceInterface
      *
      * @return bool
      */
-    public function readUntil($user, $notification);
+    public function readUntil( $user, $notification );
 
     /**
      * @param \App\Models\AuthenticatableBase $user
      *
      * @return int
      */
-    public function getUnreadNotificationCount($user);
+    public function getUnreadNotificationCount( $user );
 
     /**
      * @param \App\Models\AuthenticatableBase $user
@@ -47,12 +47,12 @@ interface NotificationServiceInterface extends BaseServiceInterface
      *
      * @return \App\Models\Notification[]
      */
-    public function getNotifications($user, $offset, $limit);
+    public function getNotifications( $user, $offset, $limit );
 
     /**
      * @param \App\Models\AuthenticatableBase $user
      *
      * @return int
      */
-    public function countNotifications($user);
+    public function countNotifications( $user );
 }

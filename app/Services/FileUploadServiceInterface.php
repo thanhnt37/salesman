@@ -12,7 +12,7 @@ interface FileUploadServiceInterface extends BaseServiceInterface
      *
      * @return \App\Models\Image|\App\Models\File|null
      */
-    public function uploadFromText($categoryType, $text, $mediaType, $metaInputs);
+    public function uploadFromText( $categoryType, $text, $mediaType, $metaInputs );
 
     /**
      * @param int    $categoryType
@@ -22,12 +22,12 @@ interface FileUploadServiceInterface extends BaseServiceInterface
      *
      * @return \App\Models\Image|\App\Models\File|null
      */
-    public function upload($categoryType, $path, $mediaType, $metaInputs);
+    public function upload( $categoryType, $path, $mediaType, $metaInputs );
 
     /**
      * @param \App\Models\Image|\App\Models\File $model
      *
      * @return bool|null
      */
-    public function delete($model);
+    public function delete( $model );
 }

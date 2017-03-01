@@ -9,28 +9,28 @@ interface AuthenticatableServiceInterface extends BaseServiceInterface
      *
      * @return \App\Models\AuthenticatableBase
      */
-    public function signInById($id);
+    public function signInById( $id );
 
     /**
      * @param array $input
      *
      * @return \App\Models\AuthenticatableBase
      */
-    public function signIn($input);
+    public function signIn( $input );
 
     /**
      * @param array $input
      *
      * @return \App\Models\AuthenticatableBase
      */
-    public function signUp($input);
+    public function signUp( $input );
 
     /**
      * @param string $email
      *
      * @return bool
      */
-    public function sendPasswordReset($email);
+    public function sendPasswordReset( $email );
 
     /**
      * @return bool
@@ -45,7 +45,7 @@ interface AuthenticatableServiceInterface extends BaseServiceInterface
     /**
      * @param \App\Models\AuthenticatableBase $user
      */
-    public function setUser($user);
+    public function setUser( $user );
 
     /**
      * @return \App\Models\AuthenticatableBase
@@ -55,14 +55,14 @@ interface AuthenticatableServiceInterface extends BaseServiceInterface
     /**
      * @param string $email
      */
-    public function sendPasswordResetEmail($email);
+    public function sendPasswordResetEmail( $email );
 
     /**
      * @param string $token
      *
      * @return null|\App\Models\AuthenticatableBase
      */
-    public function getUserByPasswordResetToken($token);
+    public function getUserByPasswordResetToken( $token );
 
     /**
      * @param string $email
@@ -71,7 +71,7 @@ interface AuthenticatableServiceInterface extends BaseServiceInterface
      *
      * @return bool
      */
-    public function resetPassword($email, $password, $token);
+    public function resetPassword( $email, $password, $token );
 
     /**
      * @return bool
@@ -83,21 +83,21 @@ interface AuthenticatableServiceInterface extends BaseServiceInterface
      *
      * @return \App\Models\AuthenticatableBase
      */
-    public function signInByAPI($input);
+    public function signInByAPI( $input );
 
     /**
      * @param  $input
      *
      * @return \App\Models\AuthenticatableBase
      */
-    public function signUpByAPI($input);
+    public function signUpByAPI( $input );
 
     /**
      * @param \App\Models\AuthenticatableBase $user
      *
      * @return \App\Models\AuthenticatableBase
      */
-    public function setAPIAccessToken($user);
+    public function setAPIAccessToken( $user );
 
     /**
      * @return string

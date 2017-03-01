@@ -10,8 +10,9 @@ class UserNotificationService extends NotificationService implements UserNotific
 {
     public function __construct(
         UserNotificationRepositoryInterface $notificationRepository,
-        UserRepositoryInterface $userRepository
-    ) {
-        parent::__construct($notificationRepository, $userRepository);
+        UserRepositoryInterface             $userRepository
+    )
+    {
+        parent::__construct( $notificationRepository, $userRepository );
     }
 }

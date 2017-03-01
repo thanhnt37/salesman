@@ -11,12 +11,12 @@ class MetaInformationService extends BaseService implements MetaInformationServi
      *
      * @return array
      */
-    public function getKeywordArray($string)
+    public function getKeywordArray( $string )
     {
-        $keywords = explode(',', $string);
+        $keywords = explode( ',', $string );
         $result = [];
-        foreach ($keywords as $keyword) {
-            if (!in_array($keyword, $result)) {
+        foreach( $keywords as $keyword ) {
+            if( !in_array( $keyword, $result ) ) {
                 $result[] = $keyword;
             }
         }
@@ -29,8 +29,8 @@ class MetaInformationService extends BaseService implements MetaInformationServi
      *
      * @return string
      */
-    public function generateKeywordString($keywords)
+    public function generateKeywordString( $keywords )
     {
-        return implode(',', $keywords);
+        return implode( ',', $keywords );
     }
 }

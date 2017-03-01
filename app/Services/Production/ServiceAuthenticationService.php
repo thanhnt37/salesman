@@ -15,11 +15,12 @@ class ServiceAuthenticationService extends BaseService implements ServiceAuthent
     protected $authenticatableRepository;
 
     public function __construct(
-        AuthenticatableRepositoryInterface $authenticatableRepository,
-        ServiceAuthenticationRepositoryInterface $serviceAuthenticationRepository
-    ) {
-        $this->authenticatableRepository = $authenticatableRepository;
-        $this->serviceAuthenticationRepository = $serviceAuthenticationRepository;
+        AuthenticatableRepositoryInterface          $authenticatableRepository,
+        ServiceAuthenticationRepositoryInterface    $serviceAuthenticationRepository
+    )
+    {
+        $this->authenticatableRepository            = $authenticatableRepository;
+        $this->serviceAuthenticationRepository      = $serviceAuthenticationRepository;
     }
 
     /**
@@ -28,28 +29,30 @@ class ServiceAuthenticationService extends BaseService implements ServiceAuthent
      *
      * @return \App\Models\AuthenticatableBase
      */
-    public function getAuthModelId($service, $input)
+    public function getAuthModelId( $service, $input )
     {
         $columnName = $this->serviceAuthenticationRepository->getAuthModelColumn();
 
-        $authInfo = $this->serviceAuthenticationRepository->findByServiceAndId($service,
-            array_get($input, 'service_id'));
-        if (!empty($authInfo)) {
+        $authInfo = $this->serviceAuthenticationRepository->findByServiceAndId(
+            $service,
+            array_get( $input, 'service_id' )
+        );
+        if( !empty( $authInfo ) ) {
             return $authInfo->$columnName;
         }
 
-        $authUser = $this->authenticatableRepository->findByEmail(array_get($input, 'email'));
-        if (!empty($authUser)) {
-            $authInfo = $this->serviceAuthenticationRepository->findByServiceAndAuthModelId($service, $authUser->id);
-            if (!empty($authInfo)) {
+        $authUser = $this->authenticatableRepository->findByEmail( array_get( $input, 'email' ) );
+        if( !empty( $authUser ) ) {
+            $authInfo = $this->serviceAuthenticationRepository->findByServiceAndAuthModelId( $service, $authUser->id );
+            if( !empty( $authInfo ) ) {
                 return $authUser->id;
             }
         } else {
-            $authUser = $this->authenticatableRepository->create($input);
+            $authUser = $this->authenticatableRepository->create( $input );
         }
 
         $input[ $columnName ] = $authUser->id;
-        $this->serviceAuthenticationRepository->create($input);
+        $this->serviceAuthenticationRepository->create( $input );
 
         return $authUser->id;
     }
