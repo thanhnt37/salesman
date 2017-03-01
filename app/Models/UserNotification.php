@@ -5,29 +5,29 @@ namespace App\Models;
 /**
  * App\Models\UserNotification.
  *
- * @property int $id
- * @property int $user_id
- * @property string $category_type
- * @property string $type
- * @property string $data
- * @property string $content
- * @property string $locale
- * @property bool $read
- * @property \Carbon\Carbon $sent_at
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property int                   $id
+ * @property int                   $user_id
+ * @property string                $category_type
+ * @property string                $type
+ * @property string                $data
+ * @property string                $content
+ * @property string                $locale
+ * @property bool                  $read
+ * @property \Carbon\Carbon        $sent_at
+ * @property \Carbon\Carbon        $created_at
+ * @property \Carbon\Carbon        $updated_at
  *
- * @method static \Illuminate\Database\Query\Builder|\App\Models\UserNotification whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\UserNotification whereUserId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\UserNotification whereCategoryType($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\UserNotification whereType($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\UserNotification whereData($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\UserNotification whereContent($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\UserNotification whereLocale($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\UserNotification whereRead($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\UserNotification whereSentAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\UserNotification whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\UserNotification whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\UserNotification whereId( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\UserNotification whereUserId( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\UserNotification whereCategoryType( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\UserNotification whereType( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\UserNotification whereData( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\UserNotification whereContent( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\UserNotification whereLocale( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\UserNotification whereRead( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\UserNotification whereSentAt( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\UserNotification whereCreatedAt( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\UserNotification whereUpdatedAt( $value )
  * @mixin \Eloquent
  *
  * @property-read \App\Models\User $user
@@ -70,13 +70,14 @@ class UserNotification extends Notification
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User', 'user_id', 'id');
+        return $this->belongsTo( 'App\Models\User', 'user_id', 'id' );
     }
 
     /*
      * API Presentation
      */
-    public function toAPIArray() {
+    public function toAPIArray()
+    {
         return [
             'id'            => $this->id,
             'user_id'       => $this->user_id,

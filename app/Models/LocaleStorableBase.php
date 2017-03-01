@@ -7,7 +7,7 @@ namespace App\Models;
  *
  * @property string $locale
  *
- * @method static \Illuminate\Database\Query\Builder|\App\Models\LocaleStorableBase whereLocale($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\LocaleStorableBase whereLocale( $value )
  * @mixin \Eloquent
  */
 class LocaleStorableBase extends Base
@@ -17,9 +17,9 @@ class LocaleStorableBase extends Base
         return $this->locale;
     }
 
-    public function setLocale($locale)
+    public function setLocale( $locale )
     {
-        $this->locale = strtolower($locale);
+        $this->locale = strtolower( $locale );
         $this->save();
     }
 }

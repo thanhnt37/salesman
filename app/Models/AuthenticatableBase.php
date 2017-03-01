@@ -21,12 +21,12 @@ class AuthenticatableBase extends LocaleStorableBase implements AuthenticatableC
 {
     use Authenticatable, CanResetPassword;
 
-    public function setPasswordAttribute($password)
+    public function setPasswordAttribute( $password )
     {
-        if (empty($password)) {
-            $this->attributes['password'] = '';
+        if( empty( $password ) ) {
+            $this->attributes[ 'password' ] = '';
         } else {
-            $this->attributes['password'] = \Hash::make($password);
+            $this->attributes[ 'password' ] = \Hash::make( $password );
         }
     }
 
@@ -34,9 +34,10 @@ class AuthenticatableBase extends LocaleStorableBase implements AuthenticatableC
     {
         $user = null;
         do {
-            $code = md5(\Hash::make($this->id.$this->email.$this->password.time().mt_rand()));
-            $user = static::whereApiAccessToken($code)->first();
-        } while (isset($user));
+            $code = md5( \Hash::make( $this->id . $this->email . $this->password . time() . mt_rand() ) );
+            $user = static::whereApiAccessToken( $code )
+                          ->first();
+        } while( isset( $user ) );
         $this->api_access_token = $code;
 
         return $code;
@@ -46,15 +47,15 @@ class AuthenticatableBase extends LocaleStorableBase implements AuthenticatableC
 
     public function profileImage()
     {
-        return $this->belongsTo('App\Models\Image', 'profile_image_id', 'id');
+        return $this->belongsTo( 'App\Models\Image', 'profile_image_id', 'id' );
     }
 
-    public function getProfileImageUrl($width = 0, $height = 0)
+    public function getProfileImageUrl( $width = 0, $height = 0 )
     {
-        if ($this->profile_image_id == 0) {
-            return \URLHelper::asset('img/user.png', 'common');
+        if( empty( $this->profile_image_id ) || $this->profile_image_id == 0 ) {
+            return \URLHelper::asset( 'img/user.png', 'common' );
         }
-        if ($width == 0 && $height == 0) {
+        if( $width == 0 && $height == 0 ) {
             return $this->profileImage->url;
         } else {
             return $this->profileImage->url;

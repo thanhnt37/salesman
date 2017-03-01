@@ -5,29 +5,29 @@ namespace App\Models;
 /**
  * App\Models\SiteConfiguration.
  *
- * @property int $id
- * @property string $locale
- * @property string $name
- * @property string $title
- * @property string $keywords
- * @property string $description
- * @property int $ogp_image_id
- * @property int $twitter_card_image_id
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property int                    $id
+ * @property string                 $locale
+ * @property string                 $name
+ * @property string                 $title
+ * @property string                 $keywords
+ * @property string                 $description
+ * @property int                    $ogp_image_id
+ * @property int                    $twitter_card_image_id
+ * @property \Carbon\Carbon         $created_at
+ * @property \Carbon\Carbon         $updated_at
  * @property-read \App\Models\Image $ogpImage
  * @property-read \App\Models\Image $twitterCardImage
  *
- * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereLocale($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereTitle($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereKeywords($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereDescription($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereOgpImageId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereTwitterCardImageId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereId( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereLocale( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereName( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereTitle( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereKeywords( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereDescription( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereOgpImageId( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereTwitterCardImageId( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereCreatedAt( $value )
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\SiteConfiguration whereUpdatedAt( $value )
  * @mixin \Eloquent
  */
 class SiteConfiguration extends Base
@@ -78,7 +78,7 @@ class SiteConfiguration extends Base
      */
     public function getOGPImage()
     {
-        $this->load('ogpImage');
+        $this->load( 'ogpImage' );
 
         return $this->ogpImage ? $this->ogpImage : new Image();
     }
@@ -86,11 +86,11 @@ class SiteConfiguration extends Base
     // Relations
     public function ogpImage()
     {
-        return $this->hasOne('App\Models\Image', 'id', 'ogp_image_id');
+        return $this->hasOne( 'App\Models\Image', 'id', 'ogp_image_id' );
     }
 
     public function twitterCardImage()
     {
-        return $this->hasOne('App\Models\Image', 'id', 'twitter_card_image_id');
+        return $this->hasOne( 'App\Models\Image', 'id', 'twitter_card_image_id' );
     }
 }

@@ -18,8 +18,8 @@ class Base extends Model
 
     public function present()
     {
-        if (!$this->presenterInstance) {
-            $this->presenterInstance = new $this->presenter($this);
+        if( !$this->presenterInstance ) {
+            $this->presenterInstance = new $this->presenter( $this );
         }
 
         return $this->presenterInstance;
@@ -30,7 +30,7 @@ class Base extends Model
      */
     public static function getTableName()
     {
-        return with(new static())->getTable();
+        return with( new static() )->getTable();
     }
 
     /**
@@ -49,16 +49,16 @@ class Base extends Model
         return $this->primaryKey;
     }
 
-    public function getLocalizedColumn($key)
+    public function getLocalizedColumn( $key )
     {
         $locale = \App::getLocale();
-        if (empty($locale)) {
+        if( empty( $locale ) ) {
             $locale = 'en';
         }
-        $localizedKey = $key.'_'.strtolower($locale);
+        $localizedKey = $key . '_' . strtolower( $locale );
         $value = $this->$localizedKey;
-        if (empty($value)) {
-            $localizedKey = $key.'_en';
+        if( empty( $value ) ) {
+            $localizedKey = $key . '_en';
             $value = $this->$localizedKey;
         }
 
@@ -79,8 +79,8 @@ class Base extends Model
     public function toFillableArray()
     {
         $ret = [];
-        foreach ($this->fillable as $key) {
-            $ret[$key] = $this->$key;
+        foreach( $this->fillable as $key ) {
+            $ret[ $key ] = $this->$key;
         }
 
         return $ret;

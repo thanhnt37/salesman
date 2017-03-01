@@ -1,7 +1,8 @@
 <?php namespace App\Models;
 
 
-class AdminUserNotification extends Notification {
+class AdminUserNotification extends Notification
+{
 
 
     /**
@@ -39,7 +40,8 @@ class AdminUserNotification extends Notification {
     protected $presenter = \App\Presenters\AdminUserNotificationPresenter::class;
 
     // Relations
-    public function adminUser() {
+    public function adminUser()
+    {
         return $this->belongsTo( \App\Models\AdminUser::class, 'user_id', 'id' );
     }
 
@@ -50,7 +52,8 @@ class AdminUserNotification extends Notification {
     /*
      * API Presentation
      */
-    public function toAPIArray() {
+    public function toAPIArray()
+    {
         return [
             'id'            => $this->id,
             'user_id'       => $this->user_id,

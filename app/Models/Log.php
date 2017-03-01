@@ -2,7 +2,8 @@
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Log extends Base {
+class Log extends Base
+{
 
     const TYPE_ACTION_SELECT = 'select';
     const TYPE_ACTION_INSERT = 'create';
@@ -50,7 +51,8 @@ class Log extends Base {
     /*
      * API Presentation
      */
-    public function toAPIArray() {
+    public function toAPIArray()
+    {
         return [
             'id'        => $this->id,
             'user_name' => $this->user_name,
