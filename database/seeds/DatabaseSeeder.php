@@ -12,14 +12,14 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        $this->call('AdminUserTableSeeder');
+        $this->call( 'AdminUserTableSeeder' );
 
-        if (\App::environment() === 'testing') {
+        if( \App::environment() === 'testing' ) {
             // Add More Seed For Testing
         }
 
-        if (\App::environment() === 'local') {
-            $this->call(Seeds\Local\DatabaseSeeder::class);
+        if( \App::environment() === 'local' ) {
+            $this->call( Seeds\Local\DatabaseSeeder::class );
         }
 
         Model::reguard();
