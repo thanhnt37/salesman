@@ -142,9 +142,16 @@ $factory->define(
     }
 );
 
-$factory->define(App\Models\Contact::class, function (Faker\Generator $faker) {
-    return [
-    ];
-});
+$factory->define(
+    App\Models\Contact::class,
+    function( Faker\Generator $faker ) {
+        return [
+            'name'     => $faker->name,
+            'email'    => $faker->email,
+            'messages' => $faker->sentences( 5, true ),
+            'domain'   => $faker->word
+        ];
+    }
+);
 
 /* NEW MODEL FACTORY */
