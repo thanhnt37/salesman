@@ -1,13 +1,12 @@
 <?php
 
 \Route::group(
-    ['middleware' => ['user.values']],
-    function() {
+    ['middleware' => ['user.values']], function() {
         \Route::get( '/', 'User\IndexController@index' );
+        \Route::post( '/', 'User\IndexController@postContact' );
 
         \Route::group(
-            ['middleware' => ['user.guest']],
-            function() {
+            ['middleware' => ['user.guest']], function() {
                 \Route::get( 'signin', 'User\AuthController@getSignIn' );
                 \Route::post( 'signin', 'User\AuthController@postSignIn' );
 

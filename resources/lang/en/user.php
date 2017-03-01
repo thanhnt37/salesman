@@ -16,5 +16,11 @@ return [
                 'password'        => 'Password',
             ],
         ],
+        'contacts'   => [
+            'messages'  => [
+                'save_failed' => 'Failed To Save. Please try again !!!',
+                'save_success' => 'Thank you for your submission !!!',
+            ]
+        ]
     ],
 ];
