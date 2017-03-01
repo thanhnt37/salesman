@@ -18,11 +18,11 @@ class ProxyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $request = app( 'request' );
-        $proxies = app( 'config' )->get( 'proxy.trusted' );
-        if( $proxies === '*' ) {
+        $request = app('request');
+        $proxies = app('config')->get('proxy.trusted');
+        if ($proxies === '*') {
             $proxies = [$request->getClientIp()];
         }
-        $request->setTrustedProxies( $proxies );
+        $request->setTrustedProxies($proxies);
     }
 }

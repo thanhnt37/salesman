@@ -4,21 +4,18 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class HelperBindServiceProvider extends ServiceProvider
-{
+class HelperBindServiceProvider extends ServiceProvider {
     /**
      * Bootstrap any application services.
      */
-    public function boot()
-    {
+    public function boot() {
         //
     }
 
     /**
      * Register any application services.
      */
-    public function register()
-    {
+    public function register() {
         /* Helpers */
         $this->app->singleton(
             \App\Helpers\DateTimeHelperInterface::class,
