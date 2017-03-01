@@ -15,51 +15,51 @@ return [
     */
 
     'mailgun' => [
-        'domain' => env('MAILGUN_DOMAIN'),
-        'secret' => env('MAILGUN_SECRET'),
+        'domain' => env( 'MAILGUN_DOMAIN' ),
+        'secret' => env( 'MAILGUN_SECRET' ),
     ],
 
     'mandrill' => [
-        'secret' => env('MANDRILL_SECRET'),
+        'secret' => env( 'MANDRILL_SECRET' ),
     ],
 
     'ses' => [
-        'key' => env('SES_KEY'),
-        'secret' => env('SES_SECRET'),
+        'key'    => env( 'SES_KEY' ),
+        'secret' => env( 'SES_SECRET' ),
         'region' => 'us-east-1',
     ],
 
     'sparkpost' => [
-        'secret' => env('SPARKPOST_SECRET'),
+        'secret' => env( 'SPARKPOST_SECRET' ),
     ],
 
     'stripe' => [
-        'model' => \App\Models\User::class,
-        'key' => env('STRIPE_KEY'),
-        'secret' => env('STRIPE_SECRET'),
+        'model'  => \App\Models\User::class,
+        'key'    => env( 'STRIPE_KEY' ),
+        'secret' => env( 'STRIPE_SECRET' ),
     ],
 
     'facebook' => [
-        'client_id' => env('FACEBOOK_APP_ID'),
-        'client_secret' => env('FACEBOOK_SECRET'),
+        'client_id'       => env( 'FACEBOOK_APP_ID' ),
+        'client_secret'   => env( 'FACEBOOK_SECRET' ),
         'redirect_action' => 'User\FacebookServiceAuthController@callback',
     ],
 
     'twitter' => [
-        'client_id' => '',
-        'client_secret' => '',
+        'client_id'       => '',
+        'client_secret'   => '',
         'redirect_action' => '',
     ],
 
     'google' => [
-        'client_id' => '',
-        'client_secret' => '',
+        'client_id'       => '',
+        'client_secret'   => '',
         'redirect_action' => '',
     ],
 
     'github' => [
-        'client_id' => '',
-        'client_secret' => '',
+        'client_id'       => '',
+        'client_secret'   => '',
         'redirect_action' => '',
     ],
 
