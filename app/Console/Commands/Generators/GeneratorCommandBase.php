@@ -14,7 +14,7 @@ abstract class GeneratorCommandBase extends Command
 
     protected $type = '';
 
-    public function __construct(Filesystem $files)
+    public function __construct( Filesystem $files )
     {
         parent::__construct();
         $this->files = $files;
@@ -28,8 +28,8 @@ abstract class GeneratorCommandBase extends Command
     public function handle()
     {
         $targetName = $this->getTargetName();
-        $name = $this->parseName($targetName);
-        $this->generate($name);
+        $name = $this->parseName( $targetName );
+        $this->generate( $name );
 
         return true;
     }
@@ -41,7 +41,7 @@ abstract class GeneratorCommandBase extends Command
      *
      * @return bool
      */
-    abstract protected function generate($name);
+    abstract protected function generate( $name );
 
     /**
      * Determine if the class already exists.
@@ -50,9 +50,9 @@ abstract class GeneratorCommandBase extends Command
      *
      * @return bool
      */
-    protected function alreadyExists($path)
+    protected function alreadyExists( $path )
     {
-        return $this->files->exists($path);
+        return $this->files->exists( $path );
     }
 
     /**
@@ -62,9 +62,9 @@ abstract class GeneratorCommandBase extends Command
      *
      * @return $this
      */
-    protected function replaceTemplateVariable(&$stub, $key, $value)
+    protected function replaceTemplateVariable( &$stub, $key, $value )
     {
-        $stub = str_replace('%%'.$key.'%%', $value, $stub);
+        $stub = str_replace( '%%' . $key . '%%', $value, $stub );
 
         return $this;
     }
@@ -76,11 +76,11 @@ abstract class GeneratorCommandBase extends Command
      *
      * @return string
      */
-    protected function getPath($name)
+    protected function getPath( $name )
     {
-        $name = str_replace($this->laravel->getNamespace(), '', $name);
+        $name = str_replace( $this->laravel->getNamespace(), '', $name );
 
-        return $this->laravel['path'].'/'.str_replace('\\', '/', $name).'.php';
+        return $this->laravel[ 'path' ] . '/' . str_replace( '\\', '/', $name ) . '.php';
     }
 
     /**
@@ -90,19 +90,19 @@ abstract class GeneratorCommandBase extends Command
      *
      * @return string
      */
-    protected function parseName($name)
+    protected function parseName( $name )
     {
         $rootNamespace = $this->laravel->getNamespace();
 
-        if (Str::startsWith($name, $rootNamespace)) {
+        if( Str::startsWith( $name, $rootNamespace ) ) {
             return $name;
         }
 
-        if (Str::contains($name, '/')) {
-            $name = str_replace('/', '\\', $name);
+        if( Str::contains( $name, '/' ) ) {
+            $name = str_replace( '/', '\\', $name );
         }
 
-        return $this->parseName($this->getDefaultNamespace(trim($rootNamespace, '\\')).'\\'.$name);
+        return $this->parseName( $this->getDefaultNamespace( trim( $rootNamespace, '\\' ) ) . '\\' . $name );
     }
 
     /**
@@ -112,7 +112,7 @@ abstract class GeneratorCommandBase extends Command
      *
      * @return string
      */
-    protected function getDefaultNamespace($rootNamespace)
+    protected function getDefaultNamespace( $rootNamespace )
     {
         return $rootNamespace;
     }
@@ -124,10 +124,10 @@ abstract class GeneratorCommandBase extends Command
      *
      * @return string
      */
-    protected function makeDirectory($path)
+    protected function makeDirectory( $path )
     {
-        if (!$this->files->isDirectory(dirname($path))) {
-            $this->files->makeDirectory(dirname($path), 0777, true, true);
+        if( !$this->files->isDirectory( dirname( $path ) ) ) {
+            $this->files->makeDirectory( dirname( $path ), 0777, true, true );
         }
     }
 
@@ -138,9 +138,9 @@ abstract class GeneratorCommandBase extends Command
      *
      * @return string
      */
-    protected function getNamespace($name)
+    protected function getNamespace( $name )
     {
-        return trim(implode('\\', array_slice(explode('\\', $name), 0, -1)), '\\');
+        return trim( implode( '\\', array_slice( explode( '\\', $name ), 0, -1 ) ), '\\' );
     }
 
     /**
@@ -150,9 +150,9 @@ abstract class GeneratorCommandBase extends Command
      *
      * @return string
      */
-    protected function getClassName($name)
+    protected function getClassName( $name )
     {
-        return str_replace($this->getNamespace($name).'\\', '', $name);
+        return str_replace( $this->getNamespace( $name ) . '\\', '', $name );
     }
 
     /**
@@ -162,7 +162,7 @@ abstract class GeneratorCommandBase extends Command
      */
     protected function getTargetName()
     {
-        return $this->argument('name');
+        return $this->argument( 'name' );
     }
 
     /**

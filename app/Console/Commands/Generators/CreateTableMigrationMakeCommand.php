@@ -27,52 +27,52 @@ class CreateTableMigrationMakeCommand extends GeneratorCommandBase
      */
     protected $type = 'Model';
 
-    protected function generate($name)
+    protected function generate( $name )
     {
-        $this->generateMigration($name);
+        $this->generateMigration( $name );
     }
 
-    protected function generateMigration($name)
+    protected function generateMigration( $name )
     {
-        $name = $this->getTableName($name);
+        $name = $this->getTableName( $name );
 
-        if (class_exists($className = $this->getClassName($name))) {
-            throw new InvalidArgumentException("A $className migration already exists.");
+        if( class_exists( $className = $this->getClassName( $name ) ) ) {
+            throw new InvalidArgumentException( "A $className migration already exists." );
         }
 
-        $path = $this->getPath($name);
+        $path = $this->getPath( $name );
 
-        $stub = $this->files->get($this->getStub());
-        $this->replaceTemplateVariable($stub, 'CLASS', $className);
-        $this->replaceTemplateVariable($stub, 'TABLE', $name);
+        $stub = $this->files->get( $this->getStub() );
+        $this->replaceTemplateVariable( $stub, 'CLASS', $className );
+        $this->replaceTemplateVariable( $stub, 'TABLE', $name );
 
-        $this->files->put($path, $stub);
+        $this->files->put( $path, $stub );
 
         return true;
     }
 
-    protected function getTableName($name)
+    protected function getTableName( $name )
     {
-        $name = str_replace('App\\', '', $name);
+        $name = str_replace( 'App\\', '', $name );
 
-        return \StringHelper::pluralize(\StringHelper::camel2Snake($name));
+        return \StringHelper::pluralize( \StringHelper::camel2Snake( $name ) );
     }
 
-    protected function getClassName($name)
+    protected function getClassName( $name )
     {
-        return 'Create'.\StringHelper::snake2Camel($name).'Table';
+        return 'Create' . \StringHelper::snake2Camel( $name ) . 'Table';
     }
 
-    protected function getPath($name)
+    protected function getPath( $name )
     {
-        $basePath = $this->laravel->databasePath().DIRECTORY_SEPARATOR.'migrations';
+        $basePath = $this->laravel->databasePath() . DIRECTORY_SEPARATOR . 'migrations';
 
-        return $basePath.'/'.date('Y_m_d_His').'_create_'.$name.'_table.php';
+        return $basePath . '/' . date( 'Y_m_d_His' ) . '_create_' . $name . '_table.php';
     }
 
     protected function getStub()
     {
-        return __DIR__.'/stubs/create-table-migration.stub';
+        return __DIR__ . '/stubs/create-table-migration.stub';
     }
 
     /**
